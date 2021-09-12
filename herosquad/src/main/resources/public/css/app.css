@@ -1,0 +1,26 @@
+body{
+    background-image:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(/images/woman.jpeg);
+    height: 200vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    font-size:20px;
+}
+.nav li a{
+    color:white;
+    font-size:20px;
+     text-decoration: none;
+     background-color:black;
+
+}
+
+.nav li a:hover{
+    color: black ;
+}
+
+.btn{
+     background-color: grey;
+     padding: 10px 30px;
+     border-radius: 50px;
+}

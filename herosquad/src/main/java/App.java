@@ -15,13 +15,24 @@ import static spark.Spark.*;
 
 
 public class App {
-
+  static int getHerokuAssignedPort() {
+      ProcessBuilder processBuilder = new ProcessBuilder();
+      if (processBuilder.environment().get("PORT") != null) {
+        return Integer.parseInt(processBuilder.environment().get("PORT"));
+      }
+      return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
+    }
 
     public static void main(String[] args) { //type “psvm + tab” to autocreate this
+        port(getHerokuAssignedPort());
         staticFileLocation("/public");
 
+//local
         String connectionString = "jdbc:postgresql://localhost:5432/herosquad"; //connect to todolist, not todolist_test!
         Sql2o sql2o = new Sql2o(connectionString, "moringa", "Access1");
+//heroku
+        String connectionString = "jdbc:postgresql://localhost:zjaanpjcapxdwn:e4ffa8fce21be355c5a7f8d6665bb1791c5bc4df6bc1398a6e0767f8fc0f9375@ec2-50-17-255-244.compute-1.amazonaws.com:5432/ddr38cjsfgt0uq";
+        Sql2o sql2o = new Sql2o(connectionString, "zjaanpjcapxdwn", "e4ffa8fce21be355c5a7f8d6665bb1791c5bc4df6bc1398a6e0767f8fc0f9375");
         Sql2oHeroDao heroDao = new Sql2oHeroDao(sql2o);
         Sql2oSquadDao squadDao = new Sql2oSquadDao(sql2o);
 

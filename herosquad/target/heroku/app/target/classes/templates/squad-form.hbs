@@ -1,0 +1,28 @@
+<link rel='stylesheet' href='/css/index.css'>
+{{#partial "content"}}
+    {{#if editSquad}}
+        <h1>Edit this squad!</h1>
+        <form action="/squads/{{squad.id}}" method="post">
+            <label for="name">Edit this squads name</label>
+            <input id="newSquadName" name="newSquadName" type="text" value="{{squad.name}}">
+            <button type="submit" class="btn btn-default">Go!</button>
+        </form>
+    {{else}}
+
+
+        <h1>Add a new Squad!</h1>
+        <img src="/images/avengers.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+        <img src="/images/avengers1.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+        <img src="/images/many.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+        <img src="/images/wolverine.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+        <img src="/images/many.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+        <br><br><br> <br><br><br><br>
+        <form action="/squads" method="post">
+            <label for="name">Squad Name</label>
+            <input id="name" name="name" type="text">
+            <button type="submit" class="btn btn-default">Go!</button>
+        </form>
+    {{/if}}
+{{/partial}}
+
+{{> layout.hbs}}

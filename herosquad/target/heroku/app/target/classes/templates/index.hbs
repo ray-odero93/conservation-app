@@ -1,0 +1,69 @@
+<link rel='stylesheet' href='/css/index.css'>
+{{#partial "content"}}
+
+
+<div>
+    <div class="cell">
+        <h2>SQUAD:AVENGERS<br>
+            CAUSE:JUSTICE</h2>
+        <div class="col">BatMan</div>
+        <img src="/images/cancer.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+        <div class="col">SuperMan</div>
+        <img src="/images/batman.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+        <div class="w-100">WonderWoman</div>
+        <img src="/images/wheelchair.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+        <div class="col">The Flash</div>
+        <img src="/images/health.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+        <div class="col">Wolverine</div>
+        <img src="/images/wolverine.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+        <div class="col">X-men</div>
+        <img src="/images/many.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+    </div>
+</div>
+
+    <div>
+        <h2>SQUAD:X-MEN<br>
+            CAUSE:EQUALITY</h2>
+        <div class="col">BatMan</div>
+        <img src="/images/cancer.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+        <div class="col">SuperMan</div>
+        <img src="/images/batman.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+        <div class="w-100">3.WonderWoman</div>
+        <img src="/images/wheelchair.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+        <div class="col">4.The Flash</div>
+        <img src="/images/woman.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+        <div class="col">4.The Flash</div>
+        <img src="/images/woman.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+        <div class="col">4.The Flash</div>
+        <img src="/images/woman.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+
+    </div>
+
+<div>
+    <h2>SQUAD:SPARTANS<br>
+        CAUSE:WORLD PEACE</h2>
+    <div class="col">BatMan</div>
+    <img src="/images/cancer.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+    <div class="col">SuperMan</div>
+    <img src="/images/batman.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+    <div class="w-100">3.WonderWoman</div>
+    <img src="/images/wheelchair.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+    <div class="col">4.The Flash</div>
+    <img src="/images/woman.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+    <div class="col">4.The Flash</div>
+    <img src="/images/woman.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+    <div class="col">4.The Flash</div>
+    <img src="/images/woman.jpeg" alt="Pineapple" style="width:170px;height:170px;margin-right:15px;">
+</div>
+
+    {{#if heroes}}
+        {{#each hero }}
+            <p><a href="/squads/{{squadId}}/heroes/{{id}}">{{description}}</a></p>
+        {{/each}}
+    {{else}}
+        <p>No heroes!</p>
+
+    {{/if}}
+{{/partial}}
+
+{{> layout.hbs}}

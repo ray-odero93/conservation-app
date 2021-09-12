@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{#block "title"}}HeroSquad{{/block}}</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">-->
+<!--    <link href="https://fonts.googleapis.com/css?family=Sansita&display=swap" rel="stylesheet">-->
+    <link rel='stylesheet' href='/css/app.css'>
+</head>
+<body>
+<ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="/">Home</a></li>
+    <li role="presentation" class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+           View Squads<span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            {{#if squads}}
+                {{#each squads}}
+                    <li><a href="/squads/{{id}}">{{name}}</a></li>
+                {{/each}}
+                <li><a href="/squads/new">Add a Squad</a></li>
+
+            {{else}}
+                <li><a href="/squads/new">Add a Squad</a></li>
+            {{/if}}
+        </ul>
+    </li>
+    <li role="presentation"><a href="/heroes/new">Assign Hero to Squad</a></li>
+
+
+</ul>
+<div class="container">
+    <!--begin main template-->
+    <div class="page-header">
+<!--        <img src="/images/batman.jpeg" width="70%" alt="https://unsplash.com/search/task?photo=Lh_bn9SgRSY">-->
+        <h1>INHUMAN <br> <small>THE HOME OF HEROES.</small></h1>
+    </div>
+    <div class="col-md-12">
+        {{#block "content"}}
+        {{/block}}
+    </div>
+
+</div>
+
+<!--end main template-->
+{{#block "footer"}}
+    <footer class="footer">
+        <div class="container">
+            <hr>
+            <p class="text-muted">
+                <a href="/squads/delete">delete all squads & heroes</a><br>
+                <a href="/heroes/delete">delete all heroes</a>
+            </p>
+        </div>
+    </footer>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </html>
+{{/block}}

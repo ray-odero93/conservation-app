@@ -24,6 +24,16 @@ public class App {
         Sql2oHeroDao heroDao = new Sql2oHeroDao(sql2o);
         Sql2oSquadDao squadDao = new Sql2oSquadDao(sql2o);
 
+        //get: show all tasks in all categories and show all categories
+        get("/", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Squad> allCategories = squadDao.getAll();
+            model.put("categories", allCategories);
+            List<Hero> tasks =heroDao.getAll();
+            model.put("tasks", tasks);
+            return new ModelAndView(model, "index.hbs");
+        }, new HandlebarsTemplateEngine());
+
 
         //get: show a form to create a new category
         get("/squads/new", (req, res) -> {
@@ -44,11 +54,11 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //get: show new task form
-        get("/tasks/new", (req, res) -> {
+        get("/squads/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Squad> squad = squadDao.getAll();
             model.put("squad", squad);
-            return new ModelAndView(model, "task-form.hbs");
+            return new ModelAndView(model, "squad-form.hbs");
         }, new HandlebarsTemplateEngine());
 
 //        //get: show new post form

@@ -1,7 +1,6 @@
 package models;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Hero {
@@ -24,7 +23,7 @@ public class Hero {
         return squadId;
     }
 
-    public void setCategoryId(int squadId) {
+    public void setSquadId(int squadId) {
         this.squadId = squadId;
     }
 
@@ -55,9 +54,6 @@ public class Hero {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
     public boolean getCompleted(){
         return this.completed;
@@ -71,4 +67,7 @@ public class Hero {
         return id;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
 }

@@ -1,6 +1,6 @@
 package dao;
-import models.Squad;
 import models.Hero;
+import models.Squad;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
@@ -16,13 +16,13 @@ public class Sql2oHeroDao implements HeroDao {
 
     @Override
     public void add(Hero hero) {
-        String sql = "INSERT INTO tasks (description, categoryId) VALUES (:description, :categoryId)"; //raw sql
+        String sql = "INSERT INTO heroes (description, squadId) VALUES (:description, :squadId)"; //raw sql
         try(Connection con = sql2o.open()){ //try to open a connection
             int id = (int) con.createQuery(sql, true) //make a new variable
                     .bind(hero)
                     .executeUpdate() //run it all
                     .getKey(); //int id is now the row number (row “key”) of db
-                hero.setId(id); //update object to set id now from database
+            hero.setId(id); //update object to set id now from database
         } catch (Sql2oException ex) {
             System.out.println(ex); //oops we have an error!
         }
@@ -31,7 +31,7 @@ public class Sql2oHeroDao implements HeroDao {
     @Override
     public List<Hero> getAll() {
         try(Connection con = sql2o.open()){
-            return con.createQuery("SELECT * FROM tasks") //raw sql
+            return con.createQuery("SELECT * FROM heroes") //raw sql
                     .executeAndFetch(Hero.class); //fetch a list
         }
     }
@@ -39,19 +39,19 @@ public class Sql2oHeroDao implements HeroDao {
     @Override
     public Hero findById(int id) {
         try(Connection con = sql2o.open()){
-            return con.createQuery("SELECT * FROM tasks WHERE id = :id")
+            return con.createQuery("SELECT * FROM heroes WHERE id = :id")
                     .addParameter("id", id) //key/value pair, key must match above
                     .executeAndFetchFirst(Hero.class); //fetch an individual item
         }
     }
 
     @Override
-    public void update(int id, String newDescription, int newCategoryId){
-        String sql = "UPDATE tasks SET (description, categoryId) = (:description, :categoryId) WHERE id=:id";   //raw sql
+    public void update(int id, String newDescription, int newSquadId){
+        String sql = "UPDATE heroes SET (description, squadId) = (:description, :squadId) WHERE id=:id";   //raw sql
         try(Connection con = sql2o.open()){
             con.createQuery(sql)
                     .addParameter("description", newDescription)
-                    .addParameter("categoryId", newCategoryId)
+                    .addParameter("squadId", newSquadId)
                     .addParameter("id", id)
                     .executeUpdate();
         } catch (Sql2oException ex) {
@@ -61,7 +61,7 @@ public class Sql2oHeroDao implements HeroDao {
 
     @Override
     public void deleteById(int id) {
-        String sql = "DELETE from hero WHERE id=:id";
+        String sql = "DELETE from heroes WHERE id=:id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("id", id)
@@ -73,7 +73,7 @@ public class Sql2oHeroDao implements HeroDao {
 
     @Override
     public void clearAllHeroes() {
-        String sql = "DELETE from hero";
+        String sql = "DELETE from heroes";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .executeUpdate();
@@ -82,3 +82,6 @@ public class Sql2oHeroDao implements HeroDao {
         }
     }
 }
+
+
+

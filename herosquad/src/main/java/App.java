@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 import dao.Sql2oSquadDao;
 import dao.Sql2oHeroDao;
-import dao.SquadDao;
 import models.Squad;
 import models.Hero;
 import org.sql2o.Sql2o;
@@ -21,7 +20,7 @@ public class App {
     public static void main(String[] args) { //type “psvm + tab” to autocreate this
         staticFileLocation("/public");
 
-        String connectionString = "jdbc:postgresql://localhost:5432/todolist"; //connect to todolist, not todolist_test!
+        String connectionString = "jdbc:postgresql://localhost:5432/herosquad"; //connect to todolist, not todolist_test!
         Sql2o sql2o = new Sql2o(connectionString, "moringa", "Access1");
         Sql2oHeroDao heroDao = new Sql2oHeroDao(sql2o);
         Sql2oSquadDao squadDao = new Sql2oSquadDao(sql2o);
@@ -40,8 +39,8 @@ public class App {
         //get: show a form to create a new squad
         get("/squads/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            List<Squad> squad = squadDao.getAll(); //refresh list of links for navbar
-            model.put("squad", squad);
+         List<Squad> squads = squadDao.getAll(); //refresh list of links for navbar
+         model.put("squads", squads);
             return new ModelAndView(model, "squad-form.hbs"); //new layout
         }, new HandlebarsTemplateEngine());
 
@@ -49,16 +48,17 @@ public class App {
         post("/squads", (req, res) -> { //new
             Map<String, Object> model = new HashMap<>();
             String name = req.queryParams("name");
-            Squad newSquad = new Squad(name);
-            squadDao.add(newSquad);
+           Squad newSquad = new Squad(name);
+          squadDao.add(newSquad);
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
 
+        //Delete all squads and heroes
         get("/squads/delete", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             squadDao.clearAllSquads();
-            heroDao.clearAllHeroes();
+          heroDao.clearAllHeroes();
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
@@ -66,7 +66,7 @@ public class App {
         //get: delete all tasks
         get("/heroes/delete", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            heroDao.clearAllHeroes();
+//            heroDao.clearAllHeroes();
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
@@ -99,7 +99,7 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             int idOfSquadToEdit = Integer.parseInt(req.params("id"));
             String newName = req.queryParams("newSquadName");
-            squadDao.update(idOfSquadToEdit, newName);
+           squadDao.update(idOfSquadToEdit, newName);
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
@@ -123,7 +123,7 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
 
-        //get: show new task form
+        //get: show new hero form
         get("/heroes/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Squad> squads = squadDao.getAll();
@@ -155,9 +155,9 @@ public class App {
         get("/squads/:squad_id/heroes/:hero_id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             int idOfHeroToFind = Integer.parseInt(req.params("hero_id")); //pull id - must match route segment
-            Hero foundHero = heroDao.findById(idOfHeroToFind); //use it to find task
+             Hero foundHero = heroDao.findById(idOfHeroToFind); //use it to find task
             int idOfSquadToFind = Integer.parseInt(req.params("squad_id"));
-            Squad foundSquad = squadDao.findById(idOfSquadToFind);
+       Squad foundSquad = squadDao.findById(idOfSquadToFind);
             model.put("squad", foundSquad);
             model.put("hero", foundHero); //add it to model for template to display
             model.put("squads", squadDao.getAll()); //refresh list of links for navbar

@@ -4,12 +4,12 @@
     <ul>
         {{#each heroes}}
             <li>
-                <p><a href="/squads/{{squad.id}}/heroes/{{id}}">{{description}}</a></p>
+                <p><a href="/squads/{{squad.id}}/heroes/{{hero.id}}">{{description}}</a></p>
             </li>
         {{/each}}
     </ul>
-    <a href="/squads/{{squad.id}}/edit">Edit this category</a><br>
-    <a href="/squads/{{squad.id}}/delete">DELETE this category</a>
+    <a href="/squads/{{squad.id}}/edit">Edit this squad.</a><br>
+    <a href="/squads/{{squad.id}}/delete">DELETE this squad</a>
 {{/partial}}
 
 {{> layout.hbs}}

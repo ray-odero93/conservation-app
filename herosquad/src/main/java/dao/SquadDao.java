@@ -8,7 +8,7 @@ public interface SquadDao {
 
     //LIST
     List<Squad> getAll();
-    List<Hero> getAllHeroBySquad(int squadId);
+    List<Hero> getAllHeroesBySquad(int squadId);
 
     //CREATE
     void add(Squad squad);

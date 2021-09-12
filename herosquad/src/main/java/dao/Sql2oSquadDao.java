@@ -83,7 +83,7 @@ public class Sql2oSquadDao implements SquadDao {
     }
 
     @Override
-    public List<Hero> getAllHeroBySquad(int categoryId) {
+    public List<Hero> getAllHeroesBySquad(int categoryId) {
         try(Connection con = sql2o.open()){
             return con.createQuery("SELECT * FROM tasks WHERE categoryId = :categoryId")
                     .addParameter("categoryId", categoryId)

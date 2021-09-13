@@ -20,16 +20,16 @@ public class App {
       if (processBuilder.environment().get("PORT") != null) {
         return Integer.parseInt(processBuilder.environment().get("PORT"));
       }
-      return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
+      return 4567;
     }
 
-    public static void main(String[] args) { //type “psvm + tab” to autocreate this
+    public static void main(String[] args) {
         port(getHerokuAssignedPort());
         staticFileLocation("/public");
 
 //local
-        String connectionString = "jdbc:postgresql://localhost:5432/herosquad"; //connect to todolist, not todolist_test!
-        Sql2o sql2o = new Sql2o(connectionString, "moringa", "Access1");
+//        String connectionString = "jdbc:postgresql://localhost:5432/herosquad";
+//        Sql2o sql2o = new Sql2o(connectionString, "moringa", "Access1");
 //heroku
         String connectionString = "jdbc:postgresql://localhost:zjaanpjcapxdwn:e4ffa8fce21be355c5a7f8d6665bb1791c5bc4df6bc1398a6e0767f8fc0f9375@ec2-50-17-255-244.compute-1.amazonaws.com:5432/ddr38cjsfgt0uq";
         Sql2o sql2o = new Sql2o(connectionString, "zjaanpjcapxdwn", "e4ffa8fce21be355c5a7f8d6665bb1791c5bc4df6bc1398a6e0767f8fc0f9375");
@@ -50,13 +50,13 @@ public class App {
         //get: show a form to create a new squad
         get("/squads/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-         List<Squad> squads = squadDao.getAll(); //refresh list of links for navbar
+         List<Squad> squads = squadDao.getAll();
          model.put("squads", squads);
-            return new ModelAndView(model, "squad-form.hbs"); //new layout
+            return new ModelAndView(model, "squad-form.hbs");
         }, new HandlebarsTemplateEngine());
 
         //post: process a form to create a new squad
-        post("/squads", (req, res) -> { //new
+        post("/squads", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             String name = req.queryParams("name");
            Squad newSquad = new Squad(name);
@@ -74,10 +74,10 @@ public class App {
             return null;
         }, new HandlebarsTemplateEngine());
 
-        //get: delete all tasks
+        //get: delete all heroes
         get("/heroes/delete", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-//            heroDao.clearAllHeroes();
+           heroDao.clearAllHeroes();
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
@@ -90,8 +90,8 @@ public class App {
             model.put("squad", foundSquad);
             List<Hero> allHeroesBySquad = squadDao.getAllHeroesBySquad(idOfSquadToFind);
             model.put("heroes", allHeroesBySquad);
-            model.put("squads", squadDao.getAll()); //refresh list of links for navbar
-            return new ModelAndView(model, "squad-details.hbs"); //new
+            model.put("squads", squadDao.getAll());
+            return new ModelAndView(model, "squad-details.hbs");
         }, new HandlebarsTemplateEngine());
 
 
@@ -101,7 +101,7 @@ public class App {
             model.put("editCategory", true);
             Squad squad = squadDao.findById(Integer.parseInt(req.params("id")));
             model.put("squad", squad);
-            model.put("squads", squadDao.getAll()); //refresh list of links for navbar
+            model.put("squads", squadDao.getAll());
             return new ModelAndView(model, "squad-form.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -143,20 +143,14 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //task: process new hero form
-        post("/heroes", (req, res) -> { //URL to make new task on POST route
+        post("/heroes", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Squad> allSquads = squadDao.getAll();
             model.put("squads", allSquads);
             String description = req.queryParams("description");
             int squadId = Integer.parseInt(req.queryParams("squadId"));
-            Hero newTask = new Hero(description, squadId);        //See what we did with the hard coded categoryId?
+            Hero newTask = new Hero(description, squadId);
             heroDao.add(newTask);
-//            List<Hero> tasksSoFar = heroDao.getAll();
-//            for (Hero heroItem: heroesSoFar
-//                 ) {
-//                System.out.println(heroItem);
-//            }
-//            System.out.println(tasksSoFar);
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
@@ -165,14 +159,14 @@ public class App {
         //get: show an individual hero that is nested in a squad
         get("/squads/:squad_id/heroes/:hero_id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int idOfHeroToFind = Integer.parseInt(req.params("hero_id")); //pull id - must match route segment
-             Hero foundHero = heroDao.findById(idOfHeroToFind); //use it to find task
+            int idOfHeroToFind = Integer.parseInt(req.params("hero_id"));
+             Hero foundHero = heroDao.findById(idOfHeroToFind);
             int idOfSquadToFind = Integer.parseInt(req.params("squad_id"));
        Squad foundSquad = squadDao.findById(idOfSquadToFind);
             model.put("squad", foundSquad);
-            model.put("hero", foundHero); //add it to model for template to display
-            model.put("squads", squadDao.getAll()); //refresh list of links for navbar
-            return new ModelAndView(model, "hero-detail.hbs"); //individual task page.
+            model.put("hero", foundHero);
+            model.put("squads", squadDao.getAll());
+            return new ModelAndView(model, "hero-detail.hbs");
         }, new HandlebarsTemplateEngine());
 
         //get: show a form to update a hero
@@ -187,12 +181,12 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //task: process a form to update a hero
-        post("/heroes/:id", (req, res) -> { //URL to update task on POST route
+        post("/heroes/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             int taskToEditId = Integer.parseInt(req.params("id"));
             String newContent = req.queryParams("description");
             int newSquadId = Integer.parseInt(req.queryParams("squadId"));
-           heroDao.update(taskToEditId, newContent, newSquadId);  // remember the hardcoded categoryId we placed? See what we've done to/with it?
+           heroDao.update(taskToEditId, newContent, newSquadId);
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());

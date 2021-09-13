@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface SquadDao {
 
-    //LIST
+    //LIST squads
     List<Squad> getAll();
     List<Hero> getAllHeroesBySquad(int squadId);
 
-    //CREATE
+    //CREATE squads
     void add(Squad squad);
 
     //READ

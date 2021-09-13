@@ -5,19 +5,19 @@ import models.Hero;
 
 public interface HeroDao {
 
-    // LIST
+    // LIST Heroes
     List<Hero> getAll();
 
-    // CREATE
+    // CREATE hero
     void add(Hero hero);
 
     // READ
     Hero findById(int id);
 
-    // UPDATE
+    // UPDATE hero
     void update(int id, String content, int squadId);
 
-    // DELETE
+    // DELETE Hero
     void deleteById(int id);
     void clearAllHeroes();
 }

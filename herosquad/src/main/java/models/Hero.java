@@ -18,7 +18,6 @@ public class Hero {
         this.squadId = squadId;
     }
 
-
     public int getSquadId() {
         return squadId;
     }

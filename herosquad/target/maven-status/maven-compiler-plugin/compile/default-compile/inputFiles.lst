@@ -1,0 +1,8 @@
+/home/moringa/IdeaProjects/herosquad/src/main/java/models/DB.java
+/home/moringa/IdeaProjects/herosquad/src/main/java/dao/HeroDao.java
+/home/moringa/IdeaProjects/herosquad/src/main/java/dao/SquadDao.java
+/home/moringa/IdeaProjects/herosquad/src/main/java/models/Squad.java
+/home/moringa/IdeaProjects/herosquad/src/main/java/dao/Sql2oSquadDao.java
+/home/moringa/IdeaProjects/herosquad/src/main/java/models/Hero.java
+/home/moringa/IdeaProjects/herosquad/src/main/java/dao/Sql2oHeroDao.java
+/home/moringa/IdeaProjects/herosquad/src/main/java/App.java

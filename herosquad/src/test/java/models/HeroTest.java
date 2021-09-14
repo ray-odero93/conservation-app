@@ -35,6 +35,4 @@ public class HeroTest {
         assertEquals(LocalDateTime.now().getDayOfWeek(), hero.getCreatedAt().getDayOfWeek());
     }
 
-
-
 }

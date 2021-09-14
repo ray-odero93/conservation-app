@@ -4,7 +4,7 @@
         <h1>Edit this Hero!</h1>
         <form action="/heroes/{hero.id}}" method="post">
             <br>
-            <label for="description">Edit this hero's description</label>
+            <label for="description">Edit this hero's name.</label>
             <input id="description" name="description" type="text" value="{{hero.description}}">
             <br>
             <label for="squadId">Update this hero's squad:</label>
@@ -18,22 +18,22 @@
         </form>
     {{else}}
         <h2>Deploy new hero to Squad</h2>
-        <form action="/heroes" method="post">
+        <form action="/heroes" method="post" STYLE="color:white">
             {{#if squads}}
                 <label for="description">Hero:</label>
-                <input id="description" name="description" type="text">
+                <input id="description" name="description" type="text" STYLE="background-color:black">
                 <br>
                 <label for="description">Age:</label>
-                <input id="description" name="description" type="text">
+                <input id="description" name="description" type="text" STYLE="background-color:black">
                 <br>
                 <label for="description">Strength:</label>
-                <input id="description" name="description" type="text">
+                <input id="description" name="description" type="text" STYLE="background-color:black">
                 <br>
                 <label for="description">Weakness:</label>
-                <input id="description" name="description" type="text">
+                <input id="description" name="description" type="text" STYLE="background-color:black">
                 <br>
                 <label for="squadId">Assign Hero to Squad:</label>
-                <select id="squadId" name="squadId">
+                <select id="squadId" name="squadId" style=" background-color:black">
                     {{#each squads}}
                         <option value="{{id}}">{{name}}</option>
                     {{/each}}

@@ -2,6 +2,7 @@ package models;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import org.sql2o.Connection;
 
 public class Hero {
 
@@ -68,5 +69,16 @@ public class Hero {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public void save(){
+        try(Connection con = DB.sql2o.open()) {
+            String sql = "INSERT INTO heroes (description) VALUES (:description)";
+            this.id = (int) con.createQuery(sql, true)
+                    .addParameter("description", this.description)
+                    .throwOnMappingFailure(false)
+                    .executeUpdate()
+                    .getKey();
+        }
     }
 }

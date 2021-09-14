@@ -1,9 +1,11 @@
 
+import java.sql.DriverManager;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
-
+import static spark.debug.DebugScreen.enableDebugScreen;
+//import spark.debug.DebugScreen;
 import dao.Sql2oSquadDao;
 import dao.Sql2oHeroDao;
 import models.Squad;
@@ -16,23 +18,25 @@ import static spark.Spark.*;
 
 public class App {
   static int getHerokuAssignedPort() {
+      enableDebugScreen();
       ProcessBuilder processBuilder = new ProcessBuilder();
       if (processBuilder.environment().get("PORT") != null) {
         return Integer.parseInt(processBuilder.environment().get("PORT"));
       }
       return 4567;
     }
-
     public static void main(String[] args) {
         port(getHerokuAssignedPort());
         staticFileLocation("/public");
 
 //local
-//        String connectionString = "jdbc:postgresql://localhost:5432/herosquad";
-//        Sql2o sql2o = new Sql2o(connectionString, "moringa", "Access1");
+     //   String connectionString = "jdbc:postgresql://localhost:5432/herosquad";
+   //   Sql2o sql2o = new Sql2o(connectionString, "moringa", "Access1");
 //heroku
-//        String connectionString = "jdbc:postgresql://localhost:zjaanpjcapxdwn:e4ffa8fce21be355c5a7f8d6665bb1791c5bc4df6bc1398a6e0767f8fc0f9375@ec2-50-17-255-244.compute-1.amazonaws.com:5432/ddr38cjsfgt0uq";
-//        Sql2o sql2o = new Sql2o(connectionString, "zjaanpjcapxdwn", "e4ffa8fce21be355c5a7f8d6665bb1791c5bc4df6bc1398a6e0767f8fc0f9375");
+       //String connectionString = "jdbc:postgresql://zjaanpjcapxdwn:e4ffa8fce21be355c5a7f8d6665bb1791c5bc4df6bc1398a6e0767f8fc0f9375@ec2-50-17-255-244.compute-1.amazonaws.com:5432/ddr38cjsfgt0uq";
+       //  String connectionString = "jdbc:postgresql://ec2-50-17-255-244.compute-1.amazonaws.com:5432/ddr38cjsfgt0uq";
+     // Sql2o sql2o = new Sql2o(connectionString, "zjaanpjcapxdwn","e4ffa8fce21be355c5a7f8d6665bb1791c5bc4df6bc1398a6e0767f8fc0f9375");
+        Sql2o sql2o = new Sql2o("jdbc:postgresql://ec2-50-17-255-244.compute-1.amazonaws.com:5432/ddr38cjsfgt0uq?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory", "zjaanpjcapxdwn","e4ffa8fce21be355c5a7f8d6665bb1791c5bc4df6bc1398a6e0767f8fc0f9375");
         Sql2oHeroDao heroDao = new Sql2oHeroDao(sql2o);
         Sql2oSquadDao squadDao = new Sql2oSquadDao(sql2o);
 
@@ -106,7 +110,7 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //post: process a form to update a squad
-        post("/categories/:id", (req, res) -> {
+        post("/squads/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             int idOfSquadToEdit = Integer.parseInt(req.params("id"));
             String newName = req.queryParams("newSquadName");
@@ -149,8 +153,8 @@ public class App {
             model.put("squads", allSquads);
             String description = req.queryParams("description");
             int squadId = Integer.parseInt(req.queryParams("squadId"));
-            Hero newTask = new Hero(description, squadId);
-            heroDao.add(newTask);
+            Hero newHero = new Hero(description, squadId);
+            heroDao.add(newHero);
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());

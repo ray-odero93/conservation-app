@@ -7,11 +7,11 @@ import java.util.List;
 public interface DepartmentNewsDao {
     //create
     void add(DepartmentNews departmentNews);
-    void addFoodtypeToRestaurant(DepartmentNews departmentNews, Department department);
+    void addNewsDetailsToDepartment(DepartmentNews departmentNews, Department department);
 
     //read
     List<DepartmentNews> getAll();
-    List<Department> getAllRestaurantsForAFoodtype(int id);
+    List<Department> getAllDepartmentsForANewsDetail(int id);
     DepartmentNews findById(int id);
     //update
     //omit for now

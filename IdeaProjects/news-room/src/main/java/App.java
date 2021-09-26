@@ -3,7 +3,6 @@ import exceptions.ApiException;
 import models.DepartmentNews;
 import models.Department;
 import models.NewsDetails;
-import models.dao.NewsDetailsDao;
 import models.dao.Sql2ODepartmentDao;
 import models.dao.Sql2ODepartmentNewsDao;
 import models.dao.Sql2ONewsDetailsDao;
@@ -107,11 +106,11 @@ public class App {
             if (foodtypeToFind == null){
                 throw new ApiException(404, String.format("No foodtype with the id: \"%s\" exists", req.params("id")));
             }
-            else if (departmentNewsDao.getAllRestaurantsForAFoodtype(foodtypeId).size()==0){
+            else if (departmentNewsDao.getAllDepartmentsForANewsDetail(foodtypeId).size()==0){
                 return "{\"message\":\"I'm sorry, but no restaurants are listed for this foodtype.\"}";
             }
             else {
-                return gson.toJson(departmentNewsDao.getAllRestaurantsForAFoodtype(foodtypeId));
+                return gson.toJson(departmentNewsDao.getAllDepartmentsForANewsDetail(foodtypeId));
             }
         });
 

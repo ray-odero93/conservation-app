@@ -82,7 +82,7 @@ public class Sql2ODepartmentNewsDaoTest {
         foodtypeDao.addFoodtypeToRestaurant(testDepartmentNews, testDepartment);
         foodtypeDao.addFoodtypeToRestaurant(testDepartmentNews, altDepartment);
 
-        assertEquals(2, foodtypeDao.getAllRestaurantsForAFoodtype(testDepartmentNews.getId()).size());
+        assertEquals(2, foodtypeDao.getAllDepartmentsForANewsDetail(testDepartmentNews.getId()).size());
     }
 
     @Test
@@ -96,8 +96,8 @@ public class Sql2ODepartmentNewsDaoTest {
         Department altDepartment = setupAltRestaurant();
         restaurantDao.add(altDepartment);
 
-        restaurantDao.addRestaurantToFoodtype(testDepartment, testDepartmentNews);
-        restaurantDao.addRestaurantToFoodtype(altDepartment, testDepartmentNews);
+        restaurantDao.addDepartmentToDepartmentNews(testDepartment, testDepartmentNews);
+        restaurantDao.addDepartmentToDepartmentNews(altDepartment, testDepartmentNews);
 
         restaurantDao.deleteById(testDepartment.getId());
         assertEquals(0, restaurantDao.getAllFoodtypesByRestaurant(testDepartment.getId()).size());

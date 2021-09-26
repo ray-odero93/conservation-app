@@ -97,8 +97,8 @@ public class Sql2ODepartmentDaoTest {
 
         Department testDepartment = setupRestaurant();
         restaurantDao.add(testDepartment);
-        restaurantDao.addRestaurantToFoodtype(testDepartment, testDepartmentNews);
-        restaurantDao.addRestaurantToFoodtype(testDepartment, otherDepartmentNews);
+        restaurantDao.addDepartmentToDepartmentNews(testDepartment, testDepartmentNews);
+        restaurantDao.addDepartmentToDepartmentNews(testDepartment, otherDepartmentNews);
 
         DepartmentNews[] departmentNews = {testDepartmentNews, otherDepartmentNews}; //oh hi what is this?
 
@@ -116,8 +116,8 @@ public class Sql2ODepartmentDaoTest {
         Department altDepartment = setupAltRestaurant();
         restaurantDao.add(altDepartment);
 
-        restaurantDao.addRestaurantToFoodtype(testDepartment, testDepartmentNews);
-        restaurantDao.addRestaurantToFoodtype(altDepartment, testDepartmentNews);
+        restaurantDao.addDepartmentToDepartmentNews(testDepartment, testDepartmentNews);
+        restaurantDao.addDepartmentToDepartmentNews(altDepartment, testDepartmentNews);
 
         restaurantDao.deleteById(testDepartment.getId());
         assertEquals(0, restaurantDao.getAllFoodtypesByRestaurant(testDepartment.getId()).size());

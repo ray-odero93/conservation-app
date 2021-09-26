@@ -18,7 +18,7 @@ public class Sql2ODepartmentDao implements DepartmentDao { //don't forget to sha
     @Override
     public void add(Department department) {
 
-        String sql = "INSERT INTO departments + " (name, address, zipcode, phone, website, email) VALUES (:name, :address, :zipcode, :phone, :website, :email)";
+        String sql = "INSERT INTO departments  (name, address, zipcode, phone, website, email) VALUES (:name, :address, :zipcode, :phone, :website, :email)";
         try (Connection con = sql2o.open()) {
             int id = (int) con.createQuery(sql, true)
                     .bind(department)
@@ -68,13 +68,13 @@ public class Sql2ODepartmentDao implements DepartmentDao { //don't forget to sha
     @Override
     public void deleteById(int id) {
         String sql = "DELETE from departments WHERE id = :id"; //raw sql
-        String deleteJoin = "DELETE from restaurants_foodtypes WHERE restaurantid = :restaurantId";
+        String deleteJoin = "DELETE from departments_departmentnews WHERE departmentid = :departmentId";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("id", id)
                     .executeUpdate();
             con.createQuery(deleteJoin)
-                    .addParameter("restaurantId", id)
+                    .addParameter("departmentId", id)
                     .executeUpdate();
 
         } catch (Sql2oException ex){
@@ -93,12 +93,12 @@ public class Sql2ODepartmentDao implements DepartmentDao { //don't forget to sha
     }
 
     @Override
-    public void addRestaurantToFoodtype(Department department, DepartmentNews departmentNews){
-        String sql = "INSERT INTO departments_departmentnews (restaurantid, foodtypeid) VALUES (:restaurantId, :foodtypeId)";
+    public void addDepartmentToDepartmentNews(Department department, DepartmentNews departmentNews){
+        String sql = "INSERT INTO departments_departmentnews (departmentid, departmentnewsid) VALUES (:restaurantId, :foodtypeId)";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
-                    .addParameter("restaurantId", department.getId())
-                    .addParameter("foodtypeId", departmentNews.getId())
+                    .addParameter("departmentId", department.getId())
+                    .addParameter("departmentnewsId", departmentNews.getId())
                     .executeUpdate();
         } catch (Sql2oException ex){
             System.out.println(ex);
@@ -106,19 +106,19 @@ public class Sql2ODepartmentDao implements DepartmentDao { //don't forget to sha
     }
 
     @Override
-    public List<DepartmentNews> getAllFoodtypesByRestaurant(int restaurantId){
+    public List<DepartmentNews> getAllDepartmentNewsByDepartment(int departmentId){
         List<DepartmentNews> departmentNews = new ArrayList(); //empty list
-        String joinQuery = "SELECT foodtypeid FROM departments_departmentnews WHERE restaurantid = :restaurantId";
+        String joinQuery = "SELECT newsdetailsid FROM departments_departmentnews WHERE restaurantid = :restaurantId";
 
         try (Connection con = sql2o.open()) {
-            List<Integer> allFoodtypesIds = con.createQuery(joinQuery)
-                    .addParameter("restaurantId", restaurantId)
+            List<Integer> allNewsDetailsIds = con.createQuery(joinQuery)
+                    .addParameter("departmentId", departmentId)
                     .executeAndFetch(Integer.class);
-            for (Integer foodId : allFoodtypesIds){
-                String foodtypeQuery = "SELECT * FROM foodtypes WHERE id = :foodtypeId";
+            for (Integer foodId : allNewsDetailsIds){
+                String newsdetailsQuery = "SELECT * FROM newsdetails WHERE id = :newsdetailsId";
                 departmentNews.add(
-                        con.createQuery(foodtypeQuery)
-                                .addParameter("foodtypeId", foodId)
+                        con.createQuery(newsdetailsQuery)
+                                .addParameter("newsdetailsId", foodId)
                                 .executeAndFetchFirst(DepartmentNews.class));
             }
         } catch (Sql2oException ex){

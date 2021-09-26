@@ -49,3 +49,5 @@ settings.gradle
 ############
 .idea
 .idea/
+herosquad/build.gradle
+ herosquad/src/main/java/App.java

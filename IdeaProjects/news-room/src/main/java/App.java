@@ -21,7 +21,7 @@ public class App {
         Sql2ODepartmentNewsDao departmentNewsDao;
         Sql2ODepartmentDao departmentDao;
         Sql2ONewsDetailsDao newsDetailsDao;
-        Connection conn;
+       Connection conn;
         Gson gson = new Gson();
 
         staticFileLocation("/public");
@@ -34,30 +34,30 @@ public class App {
         conn = sql2o.open();
 
         //ROUTES
-//        get("/restaurants"
-//                get("/restaurants/:id"
-//                        post("/restaurants/new"
-//                                post("/foodtypes/new"
-//                                        get("/foodtypes"
-//                                                get("/restaurants/:id/reviews"
-//                                                        post("/restaurants/:restaurantId/reviews/new
+//        get("/departments"
+//        get("/departments/:id"
+//        post("/departments/new"
+//                                post("/departmentnews/new"
+//                                        get("/departmentnews"
+//                                               get("/departments/:id/newsdetails"
+//                                                        post("/departments/:departmentId/newsdetails/new
 
         //CREATE
-        post("/restaurants/new", "application/json", (req, res) -> {
+        post("/departments/new", "application/json", (req, res) -> {
             Department restaurant = gson.fromJson(req.body(), Department.class);
             departmentDao.add(restaurant);
-            res.status(201);;
+            res.status(201);
             return gson.toJson(restaurant);
         });
 
         //READ
-        get("/restaurants", "application/json", (req, res) -> {
+        get("/departments", "application/json", (req, res) -> {
             return gson.toJson(departmentDao.getAll());
         });
 
-        get("/restaurants/:id", "application/json", (req, res) -> {
-            int restaurantId = Integer.parseInt(req.params("id"));
-            return gson.toJson(departmentDao.findById(restaurantId));
+        get("/departments/:id", "application/json", (req, res) -> {
+            int departmentId = Integer.parseInt(req.params("id"));
+            return gson.toJson(departmentDao.findById(departmentId));
         });
 
         //FILTERS
@@ -67,73 +67,73 @@ public class App {
 
 
         //CREATE
-        post("/restaurants/:restaurantId/foodtype/:foodtypeId", "application/json", (req, res) -> {
+        post("/departments/:departmentId/departmentnews/:departmentnewsId", "application/json", (req, res) -> {
 
-            int restaurantId = Integer.parseInt(req.params("restaurantId"));
-            int foodtypeId = Integer.parseInt(req.params("foodtypeId"));
-            Department restaurant = departmentDao.findById(restaurantId);
-            DepartmentNews departmentNews = departmentNewsDao.findById(foodtypeId);
+            int departmentId = Integer.parseInt(req.params("departmentId"));
+            int departmentNewsId = Integer.parseInt(req.params("departmentNewsId"));
+            Department department= departmentDao.findById(departmentId);
+            DepartmentNews departmentNews = departmentNewsDao.findById(departmentNewsId);
 
 
-            if (restaurant != null && departmentNews != null){
+            if (department != null && departmentNews != null){
                 //both exist and can be associated
-                departmentNewsDao.addFoodtypeToRestaurant(departmentNews, restaurant);
+                departmentNewsDao.addDepartmentNewsToDepartment(departmentNews, department);
                 res.status(201);
-                return gson.toJson(String.format("Restaurant '%s' and Foodtype '%s' have been associated",departmentNews.getName(), restaurant.getName()));
+                return gson.toJson(String.format("Department '%s' and DepartmentNews'%s' have been associated",departmentNews.getName(), department.getName()));
             }
             else {
-                throw new ApiException(404, String.format("Restaurant or Foodtype does not exist"));
+                throw new ApiException(404, String.format("Department or DepartmentNews does not exist"));
             }
         });
 
-        get("/restaurants/:id/foodtypes", "application/json", (req, res) -> {
-            int restaurantId = Integer.parseInt(req.params("id"));
-            Department restaurantToFind = departmentDao.findById(restaurantId);
-            if (restaurantToFind == null){
-                throw new ApiException(404, String.format("No restaurant with the id: \"%s\" exists", req.params("id")));
+        get("/departments/:id/departmentnews", "application/json", (req, res) -> {
+            int departmentId = Integer.parseInt(req.params("id"));
+            Department departmentToFind = departmentDao.findById(departmentId);
+            if (departmentToFind == null){
+                throw new ApiException(404, String.format("No department with the id: \"%s\" exists", req.params("id")));
             }
-            else if (departmentDao.getAllFoodtypesByRestaurant(restaurantId).size()==0){
-                return "{\"message\":\"I'm sorry, but no foodtypes are listed for this restaurant.\"}";
+            else if (departmentDao.getAllDepartmentNewsByDepartment(departmentId).size()==0){
+                return "{\"message\":\"I'm sorry, but no department news are listed for this restaurant.\"}";
             }
             else {
-                return gson.toJson(departmentDao.getAllFoodtypesByRestaurant(restaurantId));
+                return gson.toJson(departmentDao.getAllDepartmentNewsByDepartment(departmentId));
             }
         });
 
-        get("/foodtypes/:id/restaurants", "application/json", (req, res) -> {
-            int foodtypeId = Integer.parseInt(req.params("id"));
-            DepartmentNews foodtypeToFind = departmentNewsDao.findById(foodtypeId);
-            if (foodtypeToFind == null){
-                throw new ApiException(404, String.format("No foodtype with the id: \"%s\" exists", req.params("id")));
+        get("/departmentnews/:id/departments", "application/json", (req, res) -> {
+            int departmentNewsId = Integer.parseInt(req.params("id"));
+            DepartmentNews departmentNewsToFind = departmentNewsDao.findById(departmentNewsId);
+            if (departmentNewsToFind == null){
+                throw new ApiException(404, String.format("No department news with the id: \"%s\" exists", req.params("id")));
             }
-            else if (departmentNewsDao.getAllDepartmentsForANewsDetail(foodtypeId).size()==0){
-                return "{\"message\":\"I'm sorry, but no restaurants are listed for this foodtype.\"}";
+            else if (departmentNewsDao.getAllDepartmentsForANewsDetail(departmentNewsId).size()==0){
+                return "{\"message\":\"I'm sorry, but no departments are listed for this department news.\"}";
             }
             else {
-                return gson.toJson(departmentNewsDao.getAllDepartmentsForANewsDetail(foodtypeId));
+                return gson.toJson(departmentNewsDao.getAllDepartmentsForANewsDetail(departmentNewsId));
             }
         });
 
 
-        post("/restaurants/:restaurantId/reviews/new", "application/json", (req, res) -> {
-            int restaurantId = Integer.parseInt(req.params("restaurantId"));
+        post("/departments/:departmentId/newsdetails/new", "application/json", (req, res) -> {
+            int departmentId = Integer.parseInt(req.params("restaurantId"));
             NewsDetails review = gson.fromJson(req.body(), NewsDetails.class);
 
-            review.setDepartmentId(restaurantId); //we need to set this separately because it comes from our route, not our JSON input.
+            review.setDepartmentId(departmentId); //we need to set this separately because it comes from our route, not our JSON input.
             newsDetailsDao.add(review);
             res.status(201);
             return gson.toJson(review);
         });
 
-        post("/foodtypes/new", "application/json", (req, res) -> {
-            NewsDetails foodtype = gson.fromJson(req.body(), NewsDetails.class);
-            newsDetailsDao.add(foodtype);
+        post("/departmentnews/new", "application/json", (req, res) -> {
+            NewsDetails newsdetails = gson.fromJson(req.body(), NewsDetails.class);
+            newsDetailsDao.add(newsdetails);
             res.status(201);
-            return gson.toJson(foodtype);
+            return gson.toJson(newsdetails);
         });
 
         //READ
-        get("/restaurants", "application/json", (req, res) -> {
+        get("/departments", "application/json", (req, res) -> {
             System.out.println(departmentDao.getAll());
 
             if(departmentDao.getAll().size() > 0){
@@ -146,60 +146,60 @@ public class App {
 
         });
 
-        get("/restaurants/:id", "application/json", (req, res) -> { //accept a request in format JSON from an app
+        get("/departments/:id", "application/json", (req, res) -> { //accept a request in format JSON from an app
             int restaurantId = Integer.parseInt(req.params("id"));
-            Department restaurantToFind = departmentDao.findById(restaurantId);
-            if (restaurantToFind == null){
+            Department departmentToFind = departmentDao.findById(restaurantId);
+            if (departmentToFind == null){
                 throw new ApiException(404, String.format("No restaurant with the id: \"%s\" exists", req.params("id")));
             }
-            return gson.toJson(restaurantToFind);
+            return gson.toJson(departmentToFind);
         });
 
-        get("/restaurants/:id/reviews", "application/json", (req, res) -> {
-            int restaurantId = Integer.parseInt(req.params("id"));
+        get("/departments/:id/newsdetails", "application/json", (req, res) -> {
+            int departmentId = Integer.parseInt(req.params("id"));
 
-            Department restaurantToFind = departmentDao.findById(restaurantId);
-            List<NewsDetails> allReviews;
+            Department departmentToFind = departmentDao.findById(departmentId);
+            List<NewsDetails> allNewsDetails;
 
-            if (restaurantToFind == null){
+            if (departmentToFind == null){
                 throw new ApiException(404, String.format("No restaurant with the id: \"%s\" exists", req.params("id")));
             }
 
-            allReviews = newsDetailsDao.getAllNewsDetailsByDepartment(restaurantId);
+            allNewsDetails = newsDetailsDao.getAllNewsDetailsByDepartment(departmentId);
 
-            return gson.toJson(allReviews);
+            return gson.toJson(allNewsDetails);
         });
 
-        get("/foodtypes", "application/json", (req, res) -> {
+        get("/departmentnews", "application/json", (req, res) -> {
             return gson.toJson(newsDetailsDao.getAll());
         });
 
-        post("/restaurants/:restaurantId/reviews/new", "application/json", (req, res) -> {
-            int restaurantId = Integer.parseInt(req.params("restaurantId"));
-            NewsDetails review = gson.fromJson(req.body(), NewsDetails.class);
-            review.setCreatedat(); //I am new!
-            review.setFormattedCreatedAt();
-            review.setDepartmentId(restaurantId);
-            newsDetailsDao.add(review);
+        post("/departments/:departmentId/newsdetail/new", "application/json", (req, res) -> {
+            int departmentId = Integer.parseInt(req.params("departmentId"));
+            NewsDetails newsdetail = gson.fromJson(req.body(), NewsDetails.class);
+            newsdetail.setCreatedat(); //I am new!
+            newsdetail.setFormattedCreatedAt();
+            newsdetail.setDepartmentId(departmentId);
+            newsDetailsDao.add(newsdetail);
             res.status(201);
-            return gson.toJson(review);
+            return gson.toJson(newsdetail);
         });
-        get("/restaurants/:id/sortedReviews", "application/json", (req, res) -> { //// TODO: 1/18/18 generalize this route so that it can be used to return either sorted reviews or unsorted ones.
-            int restaurantId = Integer.parseInt(req.params("id"));
-            Department restaurantToFind = departmentDao.findById(restaurantId);
-            List<NewsDetails> allReviews;
-            if (restaurantToFind == null){
+        get("/departments/:id/sortedNewsDetails", "application/json", (req, res) -> { //// TODO: 1/18/18 generalize this route so that it can be used to return either sorted reviews or unsorted ones.
+            int departmentId = Integer.parseInt(req.params("id"));
+            Department departmentToFind = departmentDao.findById(departmentId);
+            List<NewsDetails> allNewsDetails;
+            if (departmentToFind == null){
                 throw new ApiException(404, String.format("No restaurant with the id: \"%s\" exists", req.params("id")));
             }
-            allReviews = newsDetailsDao.getAllNewsDetailsByDepartmentSortedNewestToOldest(restaurantId);
-            return gson.toJson(allReviews);
+            allNewsDetails = newsDetailsDao.getAllNewsDetailsByDepartmentSortedNewestToOldest(departmentId);
+            return gson.toJson(allNewsDetails);
         });
         //CREATE
-        post("/restaurants/new", "application/json", (req, res) -> {
-            Department restaurant = gson.fromJson(req.body(), Department.class);
-            departmentDao.add(restaurant);
+        post("/departments/new", "application/json", (req, res) -> {
+            Department department = gson.fromJson(req.body(), Department.class);
+            departmentDao.add(department);
             res.status(201);
-            return gson.toJson(restaurant);
+            return gson.toJson(department);
         });
 
 

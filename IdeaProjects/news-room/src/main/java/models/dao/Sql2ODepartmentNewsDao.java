@@ -63,7 +63,7 @@ public class Sql2ODepartmentNewsDao implements DepartmentNewsDao {
     }
 
     @Override
-    public void addNewsDetailsToDepartment(DepartmentNews departmentNews, Department department){
+    public void addDepartmentNewsToDepartment(DepartmentNews departmentNews, Department department){
         String sql = "INSERT INTO departments_departmentnews (departmentid, departmentnewsid) VALUES (:departmentId, :departmentnewsId)";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)

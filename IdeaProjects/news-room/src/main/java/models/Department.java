@@ -5,26 +5,26 @@ import java.util.Objects;
 public class Department {
 
     private String name;
-    private String address;
-    private String zipcode;
+    private String company;
+    private String division;
     private String phone;
     private String website;
     private String email;
     private int id;
 
-    public Department(String name, String address, String zipcode, String phone) {
+    public Department(String name, String company, String division, String phone) {
         this.name = name;
-        this.address = address;
-        this.zipcode = zipcode;
+        this.company = company;
+        this.division = division;
         this.phone = phone;
         this.website = "no website listed";
         this.email = "no email available";
     }
 
-    public Department(String name, String address, String zipcode, String phone, String website, String email) {
+    public Department(String name, String company, String division, String phone, String website, String email) {
         this.name = name;
-        this.address = address;
-        this.zipcode = zipcode;
+        this.company = company;
+        this.division = division;
         this.phone = phone;
         this.website = website;
         this.email = email;
@@ -34,12 +34,12 @@ public class Department {
         return name;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCompany() {
+        return company;
     }
 
-    public String getZipcode() {
-        return zipcode;
+    public String getDivision() {
+        return division;
     }
 
     public String getPhone() {
@@ -62,12 +62,12 @@ public class Department {
         this.name = name;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCompany(String company) {
+        this.company = company;
     }
 
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+    public void setDivision(String division) {
+        this.division = division;
     }
 
     public void setPhone(String phone) {
@@ -93,8 +93,8 @@ public class Department {
         Department that = (Department) o;
         return id == that.id &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(address, that.address) &&
-                Objects.equals(zipcode, that.zipcode) &&
+                Objects.equals(company, that.company) &&
+                Objects.equals(division, that.division) &&
                 Objects.equals(phone, that.phone) &&
                 Objects.equals(website, that.website) &&
                 Objects.equals(email, that.email);
@@ -102,6 +102,6 @@ public class Department {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, address, zipcode, phone, website, email, id);
+        return Objects.hash(name, company, division, phone, website, email, id);
     }
 }

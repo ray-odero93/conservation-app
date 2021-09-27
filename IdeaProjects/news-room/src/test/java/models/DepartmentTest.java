@@ -25,13 +25,13 @@ public class DepartmentTest {
     @Test
     public void getAddressReturnsCorrectAddress() throws Exception {
         Department testDepartment = setupRestaurant();
-        assertEquals("214 NE Broadway", testDepartment.getAddress());
+        assertEquals("214 NE Broadway", testDepartment.getCompany());
     }
 
     @Test
     public void getZipReturnsCorrectZip() throws Exception {
         Department testDepartment = setupRestaurant();
-        assertEquals("97232", testDepartment.getZipcode());
+        assertEquals("97232", testDepartment.getDivision());
     }
     @Test
     public void getPhoneReturnsCorrectPhone() throws Exception {
@@ -61,15 +61,15 @@ public class DepartmentTest {
     @Test
     public void setAddressSetsCorrectAddress() throws Exception {
         Department testDepartment = setupRestaurant();
-        testDepartment.setAddress("6600 NE Ainsworth");
-        assertNotEquals("214 NE Broadway", testDepartment.getAddress());
+        testDepartment.setCompany("6600 NE Ainsworth");
+        assertNotEquals("214 NE Broadway", testDepartment.getCompany());
     }
 
     @Test
     public void setZipSetsCorrectZip() throws Exception {
         Department testDepartment = setupRestaurant();
-        testDepartment.setZipcode("78902");
-        assertNotEquals("97232", testDepartment.getZipcode());
+        testDepartment.setDivision("78902");
+        assertNotEquals("97232", testDepartment.getDivision());
     }
     @Test
     public void setPhoneSetsCorrectPhone() throws Exception {

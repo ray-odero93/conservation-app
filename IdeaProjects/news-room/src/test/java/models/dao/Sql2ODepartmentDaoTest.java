@@ -65,8 +65,8 @@ public class Sql2ODepartmentDaoTest {
         restaurantDao.update(testDepartment.getId(), "a", "b", "c", "d", "e", "f");
         Department foundDepartment = restaurantDao.findById(testDepartment.getId());
         assertEquals("a", foundDepartment.getName());
-        assertEquals("b", foundDepartment.getAddress());
-        assertEquals("c", foundDepartment.getZipcode());
+        assertEquals("b", foundDepartment.getCompany());
+        assertEquals("c", foundDepartment.getDivision());
         assertEquals("d", foundDepartment.getPhone());
         assertEquals("e", foundDepartment.getWebsite());
         assertEquals("f", foundDepartment.getEmail());

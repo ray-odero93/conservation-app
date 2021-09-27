@@ -3,8 +3,8 @@ SET MODE PostgreSQL;
 CREATE TABLE IF NOT EXISTS departments (
  id int PRIMARY KEY auto_increment,
  name VARCHAR,
- address VARCHAR,
- zipcode VARCHAR,
+ company VARCHAR,
+ division VARCHAR,
  phone VARCHAR,
  website VARCHAR,
  email VARCHAR
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS newsdetails (
  writtenby VARCHAR,
  rating VARCHAR,
  content VARCHAR,
- restaurantid INTEGER,
+ departmentid INTEGER,
  createdat BIGINT
 );
 CREATE TABLE IF NOT EXISTS department_departmentnews (

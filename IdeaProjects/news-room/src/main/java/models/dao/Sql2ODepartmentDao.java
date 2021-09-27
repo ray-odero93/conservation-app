@@ -18,7 +18,7 @@ public class Sql2ODepartmentDao implements DepartmentDao { //don't forget to sha
     @Override
     public void add(Department department) {
 
-        String sql = "INSERT INTO departments  (name, address, zipcode, phone, website, email) VALUES (:name, :address, :zipcode, :phone, :website, :email)";
+        String sql = "INSERT INTO departments  (name, company, division, phone, website, email) VALUES (:name, :address, :zipcode, :phone, :website, :email)";
         try (Connection con = sql2o.open()) {
             int id = (int) con.createQuery(sql, true)
                     .bind(department)
@@ -48,13 +48,13 @@ public class Sql2ODepartmentDao implements DepartmentDao { //don't forget to sha
     }
 
     @Override
-    public void update(int id, String newName, String newAddress, String newZipcode, String newPhone, String newWebsite, String newEmail) {
-        String sql = "UPDATE departments SET (name, address, zipcode, phone, website, email) = (:name, :address, :zipcode, :phone, :website, :email) WHERE id=:id"; //CHECK!!!
+    public void update(int id, String newName, String newCompany, String newDivision, String newPhone, String newWebsite, String newEmail) {
+        String sql = "UPDATE departments SET (name, company, division, phone, website, email) = (:name, :address, :zipcode, :phone, :website, :email) WHERE id=:id"; //CHECK!!!
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("name", newName)
-                    .addParameter("address", newAddress)
-                    .addParameter("zipcode", newZipcode)
+                    .addParameter("address", newCompany)
+                    .addParameter("zipcode", newDivision)
                     .addParameter("phone", newPhone)
                     .addParameter("website", newWebsite)
                     .addParameter("email", newEmail)

@@ -30,32 +30,33 @@ public class Sql2ONewsDetailsDaoTest {
     }
 
     @Test
-    public void addingReviewSetsId() throws Exception {
-        NewsDetails testNewsDetails = setupReview();
+    public void addingNewsDetailSetsId() throws Exception {
+        NewsDetails testNewsDetails = setupNewsDetails();
         assertEquals(1, testNewsDetails.getId());
     }
 
+
     @Test
     public void getAll() throws Exception {
-        NewsDetails newsDetails1 = setupReview();
-        NewsDetails newsDetails2 = setupReview();
+        NewsDetails newsDetails1 = setup();
+        NewsDetails newsDetails2 = setup();
         assertEquals(2, newsDetailsDao.getAll().size());
     }
 
     @Test
-    public void getAllReviewsByRestaurant() throws Exception {
-        Department testDepartment = setupRestaurant();
-        Department otherDepartment = setupRestaurant(); //add in some extra data to see if it interferes
-        NewsDetails newsDetails1 = setupReviewForRestaurant(testDepartment);
-        NewsDetails newsDetails2 = setupReviewForRestaurant(testDepartment);
-        NewsDetails newsDetailsForOtherRestaurant = setupReviewForRestaurant(otherDepartment);
+    public void getAllNewsDetailsByDepartment() throws Exception {
+        Department testDepartment = setupDepartment();
+        Department otherDepartment = setupDepartment(); //add in some extra data to see if it interferes
+        NewsDetails newsDetails1 = setupNewsDetailsForDepartment(testDepartment);
+        NewsDetails newsDetails2 = setupNewsDetailsForDepartment(testDepartment);
+        NewsDetails newsDetailsForOtherRestaurant = setupNewsDetailsForDepartment(otherDepartment);
         assertEquals(2, newsDetailsDao.getAllNewsDetailsByDepartment(testDepartment.getId()).size());
     }
 
     @Test
     public void deleteById() throws Exception {
-        NewsDetails testNewsDetails = setupReview();
-        NewsDetails otherNewsDetails = setupReview();
+        NewsDetails testNewsDetails = setup();
+        NewsDetails otherNewsDetails = setup();
         assertEquals(2, newsDetailsDao.getAll().size());
         newsDetailsDao.deleteById(testNewsDetails.getId());
         assertEquals(1, newsDetailsDao.getAll().size());
@@ -63,15 +64,15 @@ public class Sql2ONewsDetailsDaoTest {
 
     @Test
     public void clearAll() throws Exception {
-        NewsDetails testNewsDetails = setupReview();
-        NewsDetails otherNewsDetails = setupReview();
+        NewsDetails testNewsDetails = setup();
+        NewsDetails otherNewsDetails = setup();
         newsDetailsDao.clearAll();
         assertEquals(0, newsDetailsDao.getAll().size());
     }
 
     @Test
     public void timeStampIsReturnedCorrectly() throws Exception {
-        Department testDepartment = setupRestaurant();
+        Department testDepartment = setupDepartment();
         departmentDao.add(testDepartment);
         NewsDetails testNewsDetails = new NewsDetails("Captain Kirk", "foodcoma!", 3, testDepartment.getId());
         newsDetailsDao.add(testNewsDetails);
@@ -87,7 +88,7 @@ public class Sql2ONewsDetailsDaoTest {
 
     @Test
     public void reviewsAreReturnedInCorrectOrder() throws Exception {
-        Department testDepartment = setupRestaurant();
+        Department testDepartment = setupDepartment();
         departmentDao.add(testDepartment);
         NewsDetails testNewsDetails = new NewsDetails("Captain Kirk", "foodcoma!",3,  testDepartment.getId());
         newsDetailsDao.add(testNewsDetails);
@@ -126,19 +127,19 @@ public class Sql2ONewsDetailsDaoTest {
     }
     //helpers
 
-    public NewsDetails setupReview() {
+    public NewsDetails setup() {
         NewsDetails newsDetails = new NewsDetails("great", "Kim", 4, 555);
         newsDetailsDao.add(newsDetails);
         return newsDetails;
     }
 
-    public NewsDetails setupReviewForRestaurant(Department department) {
+    public NewsDetails setupNewsDetailsForDepartment(Department department) {
         NewsDetails newsDetails = new NewsDetails("great", "Kim", 4, department.getId());
         newsDetailsDao.add(newsDetails);
         return newsDetails;
     }
 
-    public Department setupRestaurant() {
+    public Department setupDepartment() {
         Department department = new Department("Fish Witch", "214 NE Broadway", "97232", "503-402-9874", "http://fishwitch.com", "hellofishy@fishwitch.com");
         departmentDao.add(department);
         return department;

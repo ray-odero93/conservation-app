@@ -11,8 +11,8 @@ import org.sql2o.Sql2o;
 import static org.junit.Assert.*;
 
 public class Sql2ODepartmentNewsDaoTest {
-    private Sql2ODepartmentNewsDao foodtypeDao;
-    private Sql2ODepartmentDao restaurantDao;
+    private Sql2ODepartmentNewsDao departmentNewsDao;
+    private Sql2ODepartmentDao departmentDao;
     private Connection conn;
 
     @Before
@@ -20,8 +20,8 @@ public class Sql2ODepartmentNewsDaoTest {
 
       String connectionString = "jdbc:h2:mem:testing;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
     Sql2o sql2o = new Sql2o(connectionString, "", "");
-        restaurantDao = new Sql2ODepartmentDao(sql2o);
-        foodtypeDao = new Sql2ODepartmentNewsDao(sql2o);
+        departmentDao = new Sql2ODepartmentDao(sql2o);
+        departmentNewsDao = new Sql2ODepartmentNewsDao(sql2o);
         conn = sql2o.open();
     }
 
@@ -31,93 +31,95 @@ public class Sql2ODepartmentNewsDaoTest {
     }
 
     @Test
-    public void addingFoodSetsId() throws Exception {
-        DepartmentNews testDepartmentNews = setupNewFoodtype();
-        int originalFoodtypeId = testDepartmentNews.getId();
-        foodtypeDao.add(testDepartmentNews);
-        assertNotEquals(originalFoodtypeId, testDepartmentNews.getId());
+    public void addingNewsSetsId() throws Exception {
+        DepartmentNews testDepartmentNews = setupNewDepartmentNews();
+        int originalDepartmentNewsId = testDepartmentNews.getId();
+        departmentNewsDao.add(testDepartmentNews);
+        assertNotEquals(originalDepartmentNewsId, testDepartmentNews.getId());
     }
 
     @Test
-    public void addedFoodtypesAreReturnedFromGetAll() throws Exception {
-        DepartmentNews testfoodtype = setupNewFoodtype();
-        foodtypeDao.add(testfoodtype);
-        assertEquals(1, foodtypeDao.getAll().size());
+    public void addedDepartmentNewsAreReturnedFromGetAll() throws Exception {
+        DepartmentNews departmentNews = setupNewDepartmentNews();
+        departmentNewsDao.add(departmentNews);
+        assertEquals(1, departmentNewsDao.getAll().size());
     }
 
     @Test
-    public void noFoodtypesReturnsEmptyList() throws Exception {
-        assertEquals(0, foodtypeDao.getAll().size());
+    public void noDepartmentNewsReturnsEmptyList() throws Exception {
+        assertEquals(0, departmentNewsDao.getAll().size());
     }
 
     @Test
-    public void deleteByIdDeletesCorrectFoodtype() throws Exception {
-        DepartmentNews departmentNews = setupNewFoodtype();
-        foodtypeDao.add(departmentNews);
-        foodtypeDao.deleteById(departmentNews.getId());
-        assertEquals(0, foodtypeDao.getAll().size());
+    public void deleteByIdDeletesCorrectDepartmentNews() throws Exception {
+        DepartmentNews departmentNews = setupNewDepartmentNews();
+        departmentNewsDao.add(departmentNews);
+        departmentNewsDao.deleteById(departmentNews.getId());
+        assertEquals(0, departmentNewsDao.getAll().size());
     }
 
     @Test
     public void clearAll() throws Exception {
-        DepartmentNews testDepartmentNews = setupNewFoodtype();
-        DepartmentNews otherDepartmentNews = setupNewFoodtype();
-        foodtypeDao.clearAll();
-        assertEquals(0, foodtypeDao.getAll().size());
+        DepartmentNews testDepartmentNews = setupNewDepartmentNews();
+        DepartmentNews otherDepartmentNews = setupNewDepartmentNews();
+        departmentNewsDao.clearAll();
+        assertEquals(0, departmentNewsDao.getAll().size());
     }
 
     @Test
-    public void addFoodTypeToRestaurantAddsTypeCorrectly() throws Exception {
+    public void addDepartmentNewstoDepartmentAddsNewsCorrectly() throws Exception {
 
-        Department testDepartment = setupRestaurant();
-        Department altDepartment = setupAltRestaurant();
+        Department testDepartment = setupDepartment();
+        Department altDepartment = setupAltDepartment();
 
-        restaurantDao.add(testDepartment);
-        restaurantDao.add(altDepartment);
+        departmentDao.add(testDepartment);
+        departmentDao.add(altDepartment);
 
-        DepartmentNews testDepartmentNews = setupNewFoodtype();
+        DepartmentNews testDepartmentNews = setupNewDepartmentNews();
 
-        foodtypeDao.add(testDepartmentNews);
+        departmentNewsDao.add(testDepartmentNews);
 
-        foodtypeDao.addFoodtypeToRestaurant(testDepartmentNews, testDepartment);
-        foodtypeDao.addFoodtypeToRestaurant(testDepartmentNews, altDepartment);
+        departmentNewsDao.addDepartmentNewsToDepartment(testDepartmentNews, testDepartment);
+        departmentNewsDao.addDepartmentNewsToDepartment(testDepartmentNews, altDepartment);
 
-        assertEquals(2, foodtypeDao.getAllDepartmentsForANewsDetail(testDepartmentNews.getId()).size());
+        assertEquals(2, departmentNewsDao.getAllDepartmentsForANewsDetail(testDepartmentNews.getId()).size());
     }
+
+
 
     @Test
     public void deleteingRestaurantAlsoUpdatesJoinTable() throws Exception {
         DepartmentNews testDepartmentNews = new DepartmentNews("Seafood");
-        foodtypeDao.add(testDepartmentNews);
+        departmentNewsDao.add(testDepartmentNews);
 
-        Department testDepartment = setupRestaurant();
-        restaurantDao.add(testDepartment);
+        Department testDepartment = setupDepartment();
+        departmentDao.add(testDepartment);
 
-        Department altDepartment = setupAltRestaurant();
-        restaurantDao.add(altDepartment);
+        Department altDepartment = setupAltDepartment();
+        departmentDao.add(altDepartment);
 
-        restaurantDao.addDepartmentToDepartmentNews(testDepartment, testDepartmentNews);
-        restaurantDao.addDepartmentToDepartmentNews(altDepartment, testDepartmentNews);
+        departmentDao.addDepartmentToDepartmentNews(testDepartment, testDepartmentNews);
+        departmentDao.addDepartmentToDepartmentNews(altDepartment, testDepartmentNews);
 
-        restaurantDao.deleteById(testDepartment.getId());
-        assertEquals(0, restaurantDao.getAllFoodtypesByRestaurant(testDepartment.getId()).size());
+        departmentDao.deleteById(testDepartment.getId());
+        assertEquals(0, departmentDao.getAllDepartmentNewsByDepartment(testDepartment.getId()).size());
     }
 
     // helpers
 
-    public DepartmentNews setupNewFoodtype(){
+    public DepartmentNews setupNewDepartmentNews(){
         return new DepartmentNews("Sushi");
     }
 
-    public Department setupRestaurant (){
+    public Department setupDepartment (){
         Department department = new Department("Fish Omena", "214 NE Safaricom", "97232", "254-402-9874", "http://fishwitch.com", "hellofishy@fishwitch.com");
-        restaurantDao.add(department);
+        departmentDao.add(department);
         return department;
     }
 
-    public Department setupAltRestaurant (){
+    public Department setupAltDepartment (){
         Department department = new Department("Fish Omena", "214 NE Safaricom", "97232", "254-402-9874");
-        restaurantDao.add(department);
+        departmentDao.add(department);
         return department;
     }
 }

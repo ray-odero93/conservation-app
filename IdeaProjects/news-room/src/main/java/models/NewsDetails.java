@@ -9,7 +9,7 @@ public class NewsDetails implements Comparable<NewsDetails> {
     private String writtenBy;
     private int rating;
     private int id;
-    private int departmentId; //will be used to connect Restaurant to Review (one-to-many)
+    private int departmentId;
     private long createdat;
     private String formattedCreatedAt;
 
@@ -20,19 +20,19 @@ public class NewsDetails implements Comparable<NewsDetails> {
         this.rating = rating;
         this.departmentId = departmentId;
         this.createdat = System.currentTimeMillis();
-        setFormattedCreatedAt(); //we'll make me in a minute
+        setFormattedCreatedAt();
     }
     @Override
     public int compareTo(NewsDetails newsDetailsObject) {
         if (this.createdat < newsDetailsObject.createdat)
         {
-            return -1; //this object was made earlier than the second object.
+            return -1;
         }
-        else if (this.createdat > newsDetailsObject.createdat){ //this object was made later than the second object
+        else if (this.createdat > newsDetailsObject.createdat){
             return 1;
         }
         else {
-            return 0; //they were made at the same time, which is very unlikely, but mathematically not impossible.
+            return 0;
         }
     }
 
@@ -62,12 +62,12 @@ public class NewsDetails implements Comparable<NewsDetails> {
     }
 
     public void setCreatedat() {
-        this.createdat = System.currentTimeMillis(); // It'll become clear soon why we need this explicit setter
+        this.createdat = System.currentTimeMillis();
     }
 
     public String getFormattedCreatedAt(){
         Date date = new Date(createdat);
-        String datePatternToUse = "MM/dd/yyyy @ K:mm a"; //see https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+        String datePatternToUse = "MM/dd/yyyy @ K:mm a";
         SimpleDateFormat sdf = new SimpleDateFormat(datePatternToUse);
         return sdf.format(date);
     }

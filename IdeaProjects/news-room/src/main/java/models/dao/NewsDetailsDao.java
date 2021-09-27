@@ -17,7 +17,7 @@ public interface NewsDetailsDao {
 
     List<NewsDetails> getAllNewsDetailsByDepartmentSortedNewestToOldest(int departmentId);
     //update
-    //omit for now
+
 
     //delete
     void deleteById(int id);

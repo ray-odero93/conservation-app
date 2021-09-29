@@ -37,10 +37,10 @@ public class App {
 //        get("/departments"
 //        get("/departments/:id"
 //        post("/departments/new"
-//                                post("/departmentnews/new"
-//                                        get("/departmentnews"
-//                                               get("/departments/:id/newsdetails"
-//                                                        post("/departments/:departmentId/newsdetails/new
+//        post("/departmentnews/new"
+//        get("/departmentnews"
+//        get("/departments/:id/newsdetails"
+//        post("/departments/:departmentId/newsdetails/new
 
         //CREATE
         post("/departments/new", "application/json", (req, res) -> {
@@ -76,13 +76,12 @@ public class App {
 
 
             if (department != null && departmentNews != null){
-                //both exist and can be associated
                 departmentNewsDao.addDepartmentNewsToDepartment(departmentNews, department);
                 res.status(201);
                 return gson.toJson(String.format("Department '%s' and DepartmentNews'%s' have been associated",departmentNews.getName(), department.getName()));
             }
             else {
-                throw new ApiException(404, String.format("Department or DepartmentNews does not exist"));
+                throw new ApiException(404, String.format("Department or Department News does not exist"));
             }
         });
 
@@ -116,10 +115,10 @@ public class App {
 
 
         post("/departments/:departmentId/newsdetails/new", "application/json", (req, res) -> {
-            int departmentId = Integer.parseInt(req.params("restaurantId"));
+            int departmentId = Integer.parseInt(req.params("departmentId"));
             NewsDetails review = gson.fromJson(req.body(), NewsDetails.class);
 
-            review.setDepartmentId(departmentId); //we need to set this separately because it comes from our route, not our JSON input.
+            review.setDepartmentId(departmentId);
             newsDetailsDao.add(review);
             res.status(201);
             return gson.toJson(review);
@@ -141,7 +140,7 @@ public class App {
             }
 
             else {
-                return "{\"message\":\"I'm sorry, but no restaurants are currently listed in the database.\"}";
+                return "{\"message\":\"I'm sorry, but no departments are currently listed in the database.\"}";
             }
 
         });
@@ -150,7 +149,7 @@ public class App {
             int restaurantId = Integer.parseInt(req.params("id"));
             Department departmentToFind = departmentDao.findById(restaurantId);
             if (departmentToFind == null){
-                throw new ApiException(404, String.format("No restaurant with the id: \"%s\" exists", req.params("id")));
+                throw new ApiException(404, String.format("No department with the id: \"%s\" exists", req.params("id")));
             }
             return gson.toJson(departmentToFind);
         });
@@ -162,7 +161,7 @@ public class App {
             List<NewsDetails> allNewsDetails;
 
             if (departmentToFind == null){
-                throw new ApiException(404, String.format("No restaurant with the id: \"%s\" exists", req.params("id")));
+                throw new ApiException(404, String.format("No department with the id: \"%s\" exists", req.params("id")));
             }
 
             allNewsDetails = newsDetailsDao.getAllNewsDetailsByDepartment(departmentId);
@@ -189,7 +188,7 @@ public class App {
             Department departmentToFind = departmentDao.findById(departmentId);
             List<NewsDetails> allNewsDetails;
             if (departmentToFind == null){
-                throw new ApiException(404, String.format("No restaurant with the id: \"%s\" exists", req.params("id")));
+                throw new ApiException(404, String.format("No department with the id: \"%s\" exists", req.params("id")));
             }
             allNewsDetails = newsDetailsDao.getAllNewsDetailsByDepartmentSortedNewestToOldest(departmentId);
             return gson.toJson(allNewsDetails);
@@ -209,9 +208,9 @@ public class App {
             Map<String, Object> jsonMap = new HashMap<>();
             jsonMap.put("status", err.getStatusCode());
             jsonMap.put("errorMessage", err.getMessage());
-            res.type("application/json"); //after does not run in case of an exception.
-            res.status(err.getStatusCode()); //set the status
-            res.body(gson.toJson(jsonMap));  //set the output.
+            res.type("application/json");
+            res.status(err.getStatusCode());
+            res.body(gson.toJson(jsonMap));
         });
 
 

@@ -29,11 +29,11 @@ public class Sql2ONewsDetailsDaoTest {
         conn.close();
     }
 
-    @Test
-    public void addingNewsDetailSetsId() throws Exception {
-        NewsDetails testNewsDetails = setupNewsDetails();
-        assertEquals(1, testNewsDetails.getId());
-    }
+//    @Test
+//    public void addingNewsDetailSetsId() throws Exception {
+//        NewsDetails testNewsDetails = setupNewsDetails();
+//        assertEquals(1, testNewsDetails.getId());
+//    }
 
 
     @Test

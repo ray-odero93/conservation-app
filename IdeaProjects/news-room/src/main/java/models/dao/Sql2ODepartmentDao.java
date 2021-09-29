@@ -9,7 +9,7 @@ import org.sql2o.Sql2oException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sql2ODepartmentDao implements DepartmentDao { //don't forget to shake hands with your interface!
+public class Sql2ODepartmentDao implements DepartmentDao {
     private final Sql2o sql2o;
     public Sql2ODepartmentDao(Sql2o sql2o) {
         this.sql2o = sql2o;
@@ -49,7 +49,7 @@ public class Sql2ODepartmentDao implements DepartmentDao { //don't forget to sha
 
     @Override
     public void update(int id, String newName, String newCompany, String newDivision, String newPhone, String newWebsite, String newEmail) {
-        String sql = "UPDATE departments SET (name, company, division, phone, website, email) = (:name, :address, :zipcode, :phone, :website, :email) WHERE id=:id"; //CHECK!!!
+        String sql = "UPDATE departments SET (name, company, division, phone, website, email) = (:name, :company, :zipcode, :division, :website, :email) WHERE id=:id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("name", newName)

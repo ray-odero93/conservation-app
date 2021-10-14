@@ -6,8 +6,8 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.moringaschool.myrestaurants.ui.MainActivity"
-    android:background="#000000">
+    tools:context="com.moringaschool.netracker.ui.MainActivity"
+   >
 
     <ImageView
         android:id="@+id/imageView"
@@ -19,15 +19,15 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="45dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="-69dp"
-        android:layout_marginEnd="-49dp"
-        android:layout_marginRight="-49dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginStart="-3dp"
+        android:layout_marginLeft="-3dp"
+        android:layout_marginTop="-23dp"
+        android:layout_marginEnd="-1dp"
+        android:layout_marginRight="-1dp"
+        android:layout_marginBottom="24dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/dgg"
-        app:srcCompat="@drawable/dgg" />
+        android:src="@drawable/world2"
+        app:srcCompat="@drawable/world2" />
 
     <LinearLayout android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,9 +47,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="330dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginRight="105dp"
+        android:layout_marginTop="327dp"
+        android:layout_marginEnd="99dp"
+        android:layout_marginRight="99dp"
         android:text="NeTracker"
         android:textColor="@color/colorTextIcons"
         android:textSize="40sp"
@@ -58,71 +58,65 @@
 
     <Button
         android:id="@+id/findAppsButton"
-        android:layout_width="200dp"
-        android:layout_height="37dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
-        android:layout_marginStart="66dp"
-        android:layout_marginLeft="66dp"
-        android:layout_marginTop="470dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginRight="41dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="374dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
         android:background="@color/colorAccent"
         android:text="Find Social Apps"
         android:textColor="@color/colorTextIcons" />
 
     <Button
         android:id="@+id/findSystemAppsButton"
-        android:layout_width="200dp"
-        android:layout_height="37dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="68dp"
-        android:layout_marginLeft="68dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginRight="21dp"
-        android:layout_marginBottom="100dp"
         android:background="@color/colorAccent"
         android:text="Find System Apps"
         android:textColor="@color/colorTextIcons" />
 
     <EditText
         android:id="@+id/locationEditText"
-        android:layout_width="200dp"
-        android:layout_height="37dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_above="@+id/findSystemAppsButton"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
-        android:layout_marginEnd="95dp"
-        android:layout_marginRight="95dp"
-        android:layout_marginBottom="-80dp"
+        android:layout_marginTop="251dp"
         android:background="@color/colorTextIcons"
-        android:hint="Enter Category"
-        android:padding="10dp" />
+        android:hint="Enter System Category"
+        />
 
     <EditText
         android:id="@+id/categoryEditText"
-        android:layout_width="200dp"
-        android:layout_height="37dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_above="@+id/findAppsButton"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginEnd="125dp"
-        android:layout_marginRight="78dp"
-        android:layout_marginBottom="50dp"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="371dp"
         android:background="@color/colorTextIcons"
-        android:hint="Enter Category"
-        android:padding="10dp" />
+        android:hint="Enter App Category"
+        android:visibility="visible"
+        tools:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -130,7 +124,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:text="@string/time_span" />
+        android:text="@string/time_span"
+        android:textColor="@color/white"/>
 
 
 </RelativeLayout>

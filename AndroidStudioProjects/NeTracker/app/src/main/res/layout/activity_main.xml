@@ -1,21 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.moringaschool.netracker.MainActivity"
-    tools:ignore="MergeRootFrame">
+    tools:context="com.moringaschool.myrestaurants.ui.MainActivity"
+    android:background="#000000">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="45dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="-69dp"
+        android:layout_marginEnd="-49dp"
+        android:layout_marginRight="-49dp"
+        android:layout_marginBottom="70dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/dgg"
+        app:srcCompat="@drawable/dgg" />
+
+    <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <Spinner android:id="@+id/spinner_time_span"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/appNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="330dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="105dp"
+        android:text="NeTracker"
+        android:textColor="@color/colorTextIcons"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:fontFamily="serif-monospace" />
+
+    <Button
+        android:id="@+id/findAppsButton"
+        android:layout_width="200dp"
+        android:layout_height="37dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="66dp"
+        android:layout_marginLeft="66dp"
+        android:layout_marginTop="470dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginRight="41dp"
+        android:background="@color/colorAccent"
+        android:text="Find Social Apps"
+        android:textColor="@color/colorTextIcons" />
+
+    <Button
+        android:id="@+id/findRestaurantsButton"
+        android:layout_width="200dp"
+        android:layout_height="37dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="68dp"
+        android:layout_marginLeft="68dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginBottom="100dp"
+        android:background="@color/colorAccent"
+        android:text="Find System Apps"
+        android:textColor="@color/colorTextIcons" />
+
+    <EditText
+        android:id="@+id/locationEditText"
+        android:layout_width="200dp"
+        android:layout_height="37dp"
+        android:layout_above="@+id/findRestaurantsButton"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="95dp"
+        android:layout_marginRight="95dp"
+        android:layout_marginBottom="-80dp"
+        android:background="@color/colorTextIcons"
+        android:hint="Enter Category"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/categoryEditText"
+        android:layout_width="200dp"
+        android:layout_height="37dp"
+        android:layout_above="@+id/findAppsButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="125dp"
+        android:layout_marginRight="78dp"
+        android:layout_marginBottom="50dp"
+        android:background="@color/colorTextIcons"
+        android:hint="Enter Category"
+        android:padding="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/time_span" />
 
-</FrameLayout>
+
+</RelativeLayout>

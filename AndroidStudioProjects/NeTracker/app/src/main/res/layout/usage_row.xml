@@ -17,7 +17,7 @@
                 />
         <LinearLayout android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:layout_marginLeft="@dimen/margin_medium"
+
                       android:orientation="vertical"
                 >
 
@@ -25,7 +25,7 @@
                     android:id="@+id/textview_package_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/PackageNameFont"
+
                     />
 
             <LinearLayout android:layout_width="wrap_content"

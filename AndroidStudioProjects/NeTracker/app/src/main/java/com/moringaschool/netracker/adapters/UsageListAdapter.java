@@ -1,5 +1,5 @@
 
-package com.moringaschool.netracker;
+package com.moringaschool.netracker.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +7,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.moringaschool.netracker.CustomUsageStats;
+import com.moringaschool.netracker.R;
+import com.moringaschool.netracker.CustomUsageStats;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

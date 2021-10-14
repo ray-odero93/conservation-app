@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<resources>
-    <string name="app_name">NeTracker</string>
-    <string name="intro_message">
-        <![CDATA[
-           How to use App usage statistics API.
-        ]]>
-    </string>
-</resources>

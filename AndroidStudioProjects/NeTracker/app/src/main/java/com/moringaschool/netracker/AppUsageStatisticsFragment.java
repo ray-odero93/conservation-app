@@ -6,6 +6,7 @@ import android.app.usage.UsageStatsManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -19,8 +20,11 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.moringaschool.netracker.adapters.UsageListAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,6 +53,7 @@ public class AppUsageStatisticsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("WrongConstant")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +86,7 @@ public class AppUsageStatisticsFragment extends Fragment {
 
             String[] strings = getResources().getStringArray(R.array.action_list);
 
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 StatsUsageInterval statsUsageInterval = StatsUsageInterval
@@ -99,6 +105,7 @@ public class AppUsageStatisticsFragment extends Fragment {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public List<UsageStats> getUsageStatistics(int intervalType) {
         // Get the app statistics since one year ago from the current time.
         Calendar cal = Calendar.getInstance();
@@ -125,6 +132,7 @@ public class AppUsageStatisticsFragment extends Fragment {
     }
 
     //VisibleForTesting
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     void updateAppsList(List<UsageStats> usageStatsList) {
         List<CustomUsageStats> customUsageStatsList = new ArrayList<>();
         for (int i = 0; i < usageStatsList.size(); i++) {
@@ -138,7 +146,7 @@ public class AppUsageStatisticsFragment extends Fragment {
                 Log.w(TAG, String.format("App Icon is not found for %s",
                         customUsageStats.usageStats.getPackageName()));
                 customUsageStats.appIcon = getActivity()
-                        .getDrawable(R.drawable.ic_default_app_launcher);
+                        .getDrawable(R.drawable.ic_launcher_background);
             }
             customUsageStatsList.add(customUsageStats);
         }
@@ -149,6 +157,7 @@ public class AppUsageStatisticsFragment extends Fragment {
 
     private static class LastTimeLaunchedComparatorDesc implements Comparator<UsageStats> {
 
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         public int compare(UsageStats left, UsageStats right) {
             return Long.compare(right.getLastTimeUsed(), left.getLastTimeUsed());

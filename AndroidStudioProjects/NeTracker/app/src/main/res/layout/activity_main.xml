@@ -76,7 +76,7 @@
         android:textColor="@color/colorTextIcons" />
 
     <Button
-        android:id="@+id/findRestaurantsButton"
+        android:id="@+id/findSystemAppsButton"
         android:layout_width="200dp"
         android:layout_height="37dp"
         android:layout_alignParentStart="true"
@@ -98,7 +98,7 @@
         android:id="@+id/locationEditText"
         android:layout_width="200dp"
         android:layout_height="37dp"
-        android:layout_above="@+id/findRestaurantsButton"
+        android:layout_above="@+id/findSystemAppsButton"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"

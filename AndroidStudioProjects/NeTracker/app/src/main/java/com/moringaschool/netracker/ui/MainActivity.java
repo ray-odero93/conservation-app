@@ -12,8 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.moringaschool.netracker.AppUsageStatisticsFragment;
 import com.moringaschool.netracker.R;
 
-import java.net.DatagramSocket;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -23,7 +21,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     @BindView(R.id.locationEditText) EditText mLocationEditText;
     @BindView(R.id.appNameTextView) TextView mAppNameTextView;
     @BindView(R.id.categoryEditText) EditText mCategoryEditText;
-    @BindView(R.id.findRestaurantsButton) Button mFindRestaurantsButton;
+    @BindView(R.id.findSystemAppsButton) Button mFindSystemAppsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +33,14 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                     .commit();
         }
         ButterKnife.bind(this);
-        mFindRestaurantsButton.setOnClickListener(this);
+        mFindSystemAppsButton.setOnClickListener(this);
         mFindAppsButton.setOnClickListener(this);
 
     }
         @Override
         public void onClick(View v){
 
-            if (v == mFindRestaurantsButton) {
+            if (v == mFindSystemAppsButton) {
                 String location = mLocationEditText.getText().toString();
                 Intent intent = new Intent(MainActivity.this, SystemAppsActivity.class);
                 intent.putExtra("location", location);

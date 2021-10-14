@@ -33,7 +33,7 @@ public class MainActivityTest {
     }
     @Test
     public void secondActivityStarted(){
-        activity.findViewById(R.id.findRestaurantsButton).performClick();
+        activity.findViewById(R.id.findSystemAppsButton).performClick();
         Intent expectedIntent = new Intent(activity, SocialAppsActivity.class);
         ShadowActivity shadowActivity = org.robolectric.Shadows.shadowOf(activity);
         Intent actualIntent = shadowActivity.getNextStartedActivity();

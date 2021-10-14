@@ -41,7 +41,7 @@ public class MainActivityInstrumentationTest {
         } catch (InterruptedException e){
             System.out.println("got interrupted!");
         }
-        onView(withId(R.id.findRestaurantsButton)).perform(click());
+        onView(withId(R.id.findSystemAppsButton)).perform(click());
         onView(withId(R.id.locationTextView)).check(matches
                 (withText("Here are all the restaurants near: " + location)));
     }

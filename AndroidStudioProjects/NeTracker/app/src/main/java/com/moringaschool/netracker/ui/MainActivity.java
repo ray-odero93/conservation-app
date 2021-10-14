@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,6 +35,12 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         }
         ButterKnife.bind(this);
         mFindSystemAppsButton.setOnClickListener(this);
+        mFindSystemAppsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Submitted", Toast.LENGTH_LONG).show();
+            }
+        });
         mFindAppsButton.setOnClickListener(this);
 
     }

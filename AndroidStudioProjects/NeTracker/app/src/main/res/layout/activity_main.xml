@@ -89,6 +89,17 @@
         android:text="Find System Apps"
         android:textColor="@color/colorTextIcons" />
 
+<!--    <EditText-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/locationEditText"-->
+<!--        android:background="@color/colorTextIcons"-->
+<!--        android:layout_above="@+id/findSystemAppsButton"-->
+<!--        android:layout_marginTop="251dp"-->
+<!--        android:padding="5dp"-->
+<!--        android:hint="Enter System Category"-->
+<!--        android:layout_centerHorizontal="true" />-->
+
     <EditText
         android:id="@+id/locationEditText"
         android:layout_width="match_parent"
@@ -98,8 +109,10 @@
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
         android:layout_marginTop="251dp"
+        android:padding="3dp"
         android:background="@color/colorTextIcons"
         android:hint="Enter System Category"
+        android:layout_centerHorizontal="true"
         />
 
     <EditText
@@ -126,6 +139,8 @@
         android:layout_alignParentBottom="true"
         android:text="@string/time_span"
         android:textColor="@color/white"/>
+
+
 
 
 </RelativeLayout>

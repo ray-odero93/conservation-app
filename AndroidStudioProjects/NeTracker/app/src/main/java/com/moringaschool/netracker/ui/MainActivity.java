@@ -41,9 +41,9 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         public void onClick(View v){
 
             if (v == mFindSystemAppsButton) {
-                String location = mLocationEditText.getText().toString();
+                String applocation = mLocationEditText.getText().toString();
                 Intent intent = new Intent(MainActivity.this, SystemAppsActivity.class);
-                intent.putExtra("location", location);
+                intent.putExtra("applocation", applocation);
                 startActivity(intent);
             }
             if (v == mFindAppsButton) {

@@ -18,21 +18,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SystemAppsActivity extends AppCompatActivity {
-//    private TextView mLocationTextView;
-//    private ListView mListView;
-//    private String[] restaurants = new String[] {"Mi Mero Mole", "Mother's Bistro",
-//            "Life of Pie", "Screen Door", "Luc Lac", "Sweet Basil",
-//            "Slappy Cakes", "Equinox", "Miss Delta's", "Andina",
-//            "Lardo", "Portland City Grill", "Fat Head's Brewery",
-//            "Chipotle", "Subway"};
 
         @BindView(R.id.locationTextView) TextView mLocationTextView;
         @BindView(R.id.listView) ListView mListView;
 
-        private String[] restaurants = new String[]  {"Instagram", "Whatsapp", "Twitter", "Telegram",
+        private String[] systemApps = new String[]  {"Instagram", "Whatsapp", "Twitter", "Telegram",
                 "Tiktok" };
 
-        private String[] cuisines = new String[]{"Communication App", "Communication App", "Communication App", "Communication App", "Communication App",
+        private String[] systemServices= new String[]{"Communication App", "Communication App", "Communication App", "Communication App", "Communication App",
         };
 
 
@@ -46,22 +39,22 @@ public class SystemAppsActivity extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.listView);
         mLocationTextView = (TextView) findViewById(R.id.locationTextView);
 
-        MySystemAppsArrayAdapter adapter = new MySystemAppsArrayAdapter(this, android.R.layout.simple_list_item_1, restaurants, cuisines); // the arguments must match constructor's parameters!
+        MySystemAppsArrayAdapter adapter = new MySystemAppsArrayAdapter(this, android.R.layout.simple_list_item_1, systemApps, systemServices); // the arguments must match constructor's parameters!
         mListView.setAdapter(adapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String restaurant = ((TextView)view).getText().toString();
-                Log.v("RestaurantsActivity", "In the onItemClickListener!");
-                Toast.makeText(SystemAppsActivity.this, restaurant, Toast.LENGTH_LONG).show();
+                String systemApp = ((TextView)view).getText().toString();
+                Log.v("SystemAppsActivity", "In the onItemClickListener!");
+                Toast.makeText(SystemAppsActivity.this, systemApp, Toast.LENGTH_LONG).show();
             }
         });
 
         Intent intent = getIntent();
-        String location = intent.getStringExtra("location");
-       mLocationTextView.setText("Here are all the apps under: " + location);
-      Log.d("RestaurantsActivity", "In the onCreate method!");
+        String systemApp = intent.getStringExtra("systemApp");
+       mLocationTextView.setText("Here are all the apps under: " + systemApp);
+      Log.d("SystemAppsActivity", "In the onCreate method!");
 
 
     }

@@ -3,6 +3,8 @@ package com.moringaschool.bookworld.booklist;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
+import com.moringaschool.bookworld.booklist.models.Book;
+
 import java.util.List;
 
 /**

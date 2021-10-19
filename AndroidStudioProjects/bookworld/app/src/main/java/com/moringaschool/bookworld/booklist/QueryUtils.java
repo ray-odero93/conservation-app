@@ -4,7 +4,8 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.moringaschool.bookworld.R;
+
+import com.moringaschool.bookworld.booklist.models.Book;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -1,4 +1,4 @@
-package com.moringaschool.bookworld.booklist;
+package com.moringaschool.bookworld.booklist.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
@@ -10,38 +10,23 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
-import com.moringaschool.bookworld.R;
+import com.moringaschool.bookworld.booklist.R;
+import com.moringaschool.bookworld.booklist.models.Book;
 
 import java.text.DecimalFormat;
 import java.util.List;
 
-/**
- * An {@link BookAdapter} knows how to create a list item layout for each book
- * in the data source (a list of {@link Book} objects).
- *
- * These list item layouts will be provided to an adapter view like ListView
- * to be displayed to the user.
- */
+
 public class BookAdapter extends ArrayAdapter<Book> {
 
-    /**
-     * Constructs a new {@link BookAdapter}.
-     *
-     * @param context of the app
-     * @param books is the list of books, which is the data source of the adapter
-     */
+
     public BookAdapter(Context context, List<Book> books) {
         super(context, 0, books);
     }
 
-    /**
-     * Returns a list item view that displays information about the book at the given position
-     * in the list of books.
-     */
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Check if there is an existing list item view (called convertView) that we can reuse,
-        // otherwise, if convertView is null, then inflate a new list item layout.
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
@@ -91,11 +76,6 @@ public class BookAdapter extends ArrayAdapter<Book> {
         return listItemView;
     }
 
-    /**
-     * Return the color for the rating circle based on the rating of the book.
-     *
-     * @param rating of the book
-     */
     private int getRatingColor(double rating) {
         int ratingColorResourceId;
         int ratingFloor = (int) Math.floor(rating);
@@ -121,10 +101,6 @@ public class BookAdapter extends ArrayAdapter<Book> {
         return ContextCompat.getColor(getContext(), ratingColorResourceId);
     }
 
-    /**
-     * Return the formatted rating string showing 1 decimal place (i.e. "4.7")
-     * from a decimal rating value.
-     */
     private String formatRating(double rating) {
         DecimalFormat ratingFormat = new DecimalFormat("0.0");
         return ratingFormat.format(rating);

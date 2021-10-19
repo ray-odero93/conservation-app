@@ -1,4 +1,4 @@
-package com.moringaschool.bookworld.booklist;
+package com.moringaschool.bookworld.booklist.ui;
 
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -19,26 +19,28 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.moringaschool.bookworld.R;
+import com.moringaschool.bookworld.booklist.R;
+import com.moringaschool.bookworld.booklist.models.Book;
+import com.moringaschool.bookworld.booklist.adapter.BookAdapter;
+import com.moringaschool.bookworld.booklist.BookLoader;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookActivity extends AppCompatActivity
-        implements LoaderCallbacks<List<Book>> {
+public class BookActivity extends AppCompatActivity implements LoaderCallbacks<List<Book>>   {
 
     private static final String LOG_TAG = BookActivity.class.getName();
 
-    /** URL for earthquake data from the USGS dataset */
-    private static final String GOOGLE_BOOKS_REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?q=";
+    private static final String GOOGLE_BOOKS_APIKEY = "AIzaSyAmENRzISKQB9VY8jfT5JLRwZE9TNa2Z_M";
 
-    /**
-     * Constant value for the earthquake loader ID. We can choose any integer.
-     * This really only comes into play if you're using multiple loaders.
-     */
+   private static final String GOOGLE_BOOKS_REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?q=";
+
+//    private static final String GOOGLE_BOOKS_REQUEST_URL = "https://www.googleapis.com/books/v1/volumes/zyTCAlFPjgYC?projection=lite&key=AIzaSyAmENRzISKQB9VY8jfT5JLRwZE9TNa2Z_M";
+
+
     private static final int BOOK_LOADER_ID = 1;
 
-    /** Adapter for the list of earthquakes */
+    /** Adapter for the list of books */
     private BookAdapter mAdapter;
 
     /** TextView that is displayed when the list is empty */
@@ -81,7 +83,7 @@ public class BookActivity extends AppCompatActivity
         bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                // Find the current earthquake that was clicked on
+                // Find the current book that was clicked on
                 Book currentBook = mAdapter.getItem(position);
 
                 // Convert the String URL into a URI object (to pass into the Intent constructor)

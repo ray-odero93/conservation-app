@@ -1,4 +1,4 @@
-package com.moringaschool.bookworld.booklist;
+package com.moringaschool.bookworld.booklist.models;
 
 /**
  * An {@link Book} object contains information related to a single book.

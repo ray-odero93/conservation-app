@@ -1,11 +1,12 @@
-package com.moringaschool.bookworld.booklist;
+package com.moringaschool.bookworld;
 
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
 
-import com.moringaschool.bookworld.booklist.models.Book;
+import com.moringaschool.bookworld.R;
+import com.moringaschool.bookworld.models.Book;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +27,7 @@ import java.util.List;
 /**
  * Helper methods related to requesting and receiving book data from Google Books API.
  */
+
 public final class QueryUtils {
 
     /** Tag for the log messages */
@@ -145,25 +147,17 @@ public final class QueryUtils {
         if (TextUtils.isEmpty(bookJSON)) {
             return null;
         }
-
         // Create an empty ArrayList that we can start adding books to
         List<Book> books = new ArrayList<>();
 
-        // Try to parse the JSON response string. If there's a problem with the way the JSON
-        // is formatted, a JSONException exception object will be thrown.
-        // Catch the exception so the app doesn't crash, and print the error message to the logs.
         try {
-
             // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(bookJSON);
-
             // Extract the JSONArray associated with the key called "items",
             // which represents a list of features (or books).
             JSONArray bookArray = baseJsonResponse.getJSONArray("items");
-
             // For each book in the bookArray, create an {@link Book} object
             for (int i = 0; i < bookArray.length(); i++) {
-
                 // Get a single book at position i within the list of books
                 JSONObject currentBook = bookArray.getJSONObject(i);
 
@@ -175,13 +169,12 @@ public final class QueryUtils {
                 // Extract the value for the key called "title"
                 String title = properties.getString("title");
 
-                // Extract the value for the key called "title"
+
                 String subtitle = context.getResources().getString(R.string.unknown);
                 if (properties.has("subtitle")) {
                     subtitle = properties.getString("subtitle");
                 }
 
-                // Extract authors only if they exist
                 String authors = "";
                 if (properties.has("authors")) {
                     // Extract the JSONArray for the key called "authors"
@@ -198,18 +191,23 @@ public final class QueryUtils {
                     authors = context.getResources().getString(R.string.unknown);
                 }
 
-                // Extract the value for the key called "averageRating" if it exists
                 double rating = 3.0; // default rating
                 if (properties.has(("averageRating"))) {
                     rating = properties.getDouble("averageRating");
                 }
 
-                // Extract the value for the key called "previewLink"
                 String url = properties.getString("previewLink");
 
+                String description = context.getResources().getString(R.string.unknown);
+                if (properties.has(("description"))) {
+                     description = properties.getString("description");
+                }
                 // Create a new {@link Book} object with the title, authors, rating,
                 // and url from the JSON response.
-                Book book = new Book(title, subtitle, authors, rating, url);
+
+
+
+                Book book = new Book(title, subtitle, authors, rating, url,description);
 
                 // Add the new {@link Book} to the list of books.
                 books.add(book);

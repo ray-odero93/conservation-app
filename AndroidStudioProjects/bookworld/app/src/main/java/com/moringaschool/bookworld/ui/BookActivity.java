@@ -1,4 +1,4 @@
-package com.moringaschool.bookworld.booklist.ui;
+package com.moringaschool.bookworld.ui;
 
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -19,23 +19,26 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.moringaschool.bookworld.booklist.R;
-import com.moringaschool.bookworld.booklist.models.Book;
-import com.moringaschool.bookworld.booklist.adapter.BookAdapter;
-import com.moringaschool.bookworld.booklist.BookLoader;
+import com.moringaschool.bookworld.R;
+import com.moringaschool.bookworld.models.Book;
+import com.moringaschool.bookworld.adapter.BookAdapter;
+import com.moringaschool.bookworld.BookLoader;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 public class BookActivity extends AppCompatActivity implements LoaderCallbacks<List<Book>>   {
+    @BindView(R.id.saveBookButton) TextView mSaveBookButton;
 
     private static final String LOG_TAG = BookActivity.class.getName();
 
     private static final String GOOGLE_BOOKS_APIKEY = "AIzaSyAmENRzISKQB9VY8jfT5JLRwZE9TNa2Z_M";
 
-   private static final String GOOGLE_BOOKS_REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?q=";
+  // private static final String GOOGLE_BOOKS_REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?q=";
 
-//    private static final String GOOGLE_BOOKS_REQUEST_URL = "https://www.googleapis.com/books/v1/volumes/zyTCAlFPjgYC?projection=lite&key=AIzaSyAmENRzISKQB9VY8jfT5JLRwZE9TNa2Z_M";
+  private static final String GOOGLE_BOOKS_REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?q={search}&key=AIzaSyAmENRzISKQB9VY8jfT5JLRwZE9TNa2Z_M";
 
 
     private static final int BOOK_LOADER_ID = 1;

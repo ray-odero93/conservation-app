@@ -1,4 +1,4 @@
-package com.moringaschool.bookworld.booklist.adapter;
+package com.moringaschool.bookworld.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
@@ -10,8 +10,9 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
-import com.moringaschool.bookworld.booklist.R;
-import com.moringaschool.bookworld.booklist.models.Book;
+
+import com.moringaschool.bookworld.R;
+import com.moringaschool.bookworld.models.Book;
 
 import java.text.DecimalFormat;
 import java.util.List;

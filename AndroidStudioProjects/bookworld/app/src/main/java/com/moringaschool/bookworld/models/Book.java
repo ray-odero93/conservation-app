@@ -1,8 +1,11 @@
-package com.moringaschool.bookworld.booklist.models;
+package com.moringaschool.bookworld.models;
+
+import org.parceler.Parcel;
 
 /**
  * An {@link Book} object contains information related to a single book.
  */
+@Parcel
 public class Book {
 
     /** Title of the book */
@@ -20,6 +23,9 @@ public class Book {
     /** Website URL of the book */
     private String mUrl;
 
+    /** Description of the book */
+    private String mDescription;
+
     /**
      * Constructs a new {@link Book} object.
      *
@@ -29,12 +35,13 @@ public class Book {
      * @param rating is the rating out of 5 for the book
      * @param url is the website URL to find more details about the book
      */
-    public Book(String title, String subtitle, String authors, double rating, String url) {
+    public Book(String title, String subtitle, String authors, double rating, String url, String description) {
         mTitle = title;
         mSubtitle = subtitle;
         mAuthors = authors;
         mRating = rating;
         mUrl = url;
+        mDescription = description;
     }
 
     /**
@@ -70,5 +77,9 @@ public class Book {
      */
     public String getUrl() {
         return mUrl;
+    }
+
+    public String getDescription() {
+        return mDescription;
     }
 }

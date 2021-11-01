@@ -1,9 +1,9 @@
-package com.moringaschool.bookworld.booklist;
+package com.moringaschool.bookworld;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
-import com.moringaschool.bookworld.booklist.models.Book;
+import com.moringaschool.bookworld.models.Book;
 
 import java.util.List;
 

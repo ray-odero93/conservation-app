@@ -1,4 +1,4 @@
-package com.moringaschool.bookworld.booklist.ui;
+package com.moringaschool.bookworld.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.moringaschool.bookworld.booklist.R;
+import com.moringaschool.bookworld.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,9 +17,9 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener  {
     
 
-    @BindView(R.id.findRestaurantsButton) Button mFindRestaurantsButton;
+    @BindView(R.id.findBooksButton) Button mFindRestaurantsButton;
     @BindView(R.id.appNameTextView) TextView mAppNameTextView;
-    @BindView(R.id.savedRestaurantsButton) Button mSavedRestaurantsButton;
+    @BindView(R.id.savedBooksButton) Button mSavedRestaurantsButton;
 
 
   @Override
